@@ -3,12 +3,17 @@ apply plugin: 'com.android.application'
 
 
 android {
+  /*The platform version against which the app is compiled*/
     compileSdkVersion 24
+
     buildToolsVersion "24.0.0"
 
     defaultConfig {
+        /*The fully qualified package name for the application specified in the New Project wizard.*/
         applicationId "mb.project"
+        /*The earliest version of the Android SDK that the app supports.*/
         minSdkVersion 21
+        /*The highest version of Android with which the application was tested.*/
         targetSdkVersion 24
         versionCode 1
         versionName "1.0"
@@ -16,11 +21,21 @@ android {
 
     }
     buildTypes {
+      debug {
+        debuggable true
+      }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+}
+
+sonarqube {
+  properties {
+    property "sonar.profile", "Android Lint"
+    property "sonar.sources", "./src/main/java"
+  }
 }
 
 dependencies {

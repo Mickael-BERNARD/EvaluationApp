@@ -1,6 +1,10 @@
 package mb.project;
 
+import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
+import android.provider.SyncStateContract;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -8,30 +12,67 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.EditText;
 
 public class MainActivity extends AppCompatActivity {
 
+private static String DML_TYPE;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
+      // Set the user interface layout for this Activity
+      // The layout file is defined in the project res/layout/activity_main.xml file
+      //to inflate the activity's UI:
         setContentView(R.layout.activity_main);
+
+      // The toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-       FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+
+      //==============================
+      // Initialize DB:
+      SQLiteOpenHelper sqLiteOpenHelper = new DBHelper(MainActivity.this);
     }
 
-    @Override
+  /*
+  private void onAddUserProfile(){
+    // DML - Data manipulation language.
+    // Make an intent to go from MainActivity to TableManipulationActivity.class
+    Intent intent = new Intent(MainActivity.this, TableManipulationActivity.class);
+    // Put extra values to intent: Key: DML_TYPE , Value: Insert
+    intent.putExtra(Constants.DML_TYPE, Constants.INSERT);
+    // Start activity to get the results for ADD_RECORD
+    startActivityForResult(intent, Constants.ADD_RECORD);
+  }*/
+
+
+
+  public final static String EXTRA_MESSAGE = "mb.project.MESSAGE";
+  public void sendMessage (View view) {
+    // The view will the the View that was clicked
+    // Do something in response to the button
+    // We will read the content of the text field and deliver that text to another activity.
+    // We associate to the intent the class of the app componeent (in this case an actvity to start) which the system should deliver to the Intent.
+    Intent intent = new Intent(this, DisplayMessageActivity.class);
+    // We recover the component we wanted in the layout.  // We associate the intent to it's context.
+    EditText editText = (EditText) findViewById(R.id.edit_message);
+    String message = editText.getText().toString();
+    //The putExtra() method adds the EditText's value to the intent.
+    // An Intent can carry data types as key-value pairs called extras.
+    intent.putExtra(EXTRA_MESSAGE, message);
+    startActivity(intent);
+  }
+
+
+  @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
+
+
         return true;
     }
 

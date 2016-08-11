@@ -21,7 +21,7 @@ public class MockTestExample {
 
   @Mock
   Context mMockContext;
-  
+
   @Test
   public void readStringFromContext_LocalizedString() {
     // you can mock concrete classes, not only interfaces
