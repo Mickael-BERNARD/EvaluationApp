@@ -14,6 +14,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
 
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity {
 
 private static String DML_TYPE;
@@ -34,7 +36,22 @@ private static String DML_TYPE;
 
       //==============================
       // Initialize DB:
-      SQLiteOpenHelper sqLiteOpenHelper = new DBHelper(MainActivity.this);
+      DBHelper database = new DBHelper(MainActivity.this);
+
+      // Crud operations
+      // Add Users
+
+      database.insertUser(new UserInputContract("Hillary", "Clinton"));
+      database.insertUser(new UserInputContract("Donald","Trump"));
+      database.insertUser(new UserInputContract("Barrack","Obama"));
+
+      // Get All books
+      ArrayList<UserInputContract> userInputContracts = database.getAllUsers();
+      // Delete one book
+      database.deleteRecord(userInputContracts.get(0));
+      //get all books
+      database.getAllUsers();
+
     }
 
   /*

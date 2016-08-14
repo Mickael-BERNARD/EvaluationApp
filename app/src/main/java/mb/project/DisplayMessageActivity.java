@@ -56,15 +56,15 @@ public class DisplayMessageActivity extends AppCompatActivity {
     //[!!]
     // Create a new [map of values], where column names are keys
     ContentValues values = new ContentValues();
-    values.put(DBContract.DBEntry.COLUMN_FIRST_NAME,"Thomas");
-    values.put(DBContract.DBEntry.COLUMN_LAST_NAME,"Edison");
+    values.put(DBHelper.COLUMN_FIRST_NAME,"Thomas");
+    values.put(DBHelper.COLUMN_LAST_NAME,"Edison");
 
-    // Insert the new row, returning the promary key value of the new row
+    // Insert the new row, returning the primary key value of the new row
     long newRowId;
     // Arguments are: table name,
     // name of a column in which the framework can insert NULL in the event that contentValues is empty
     newRowId = db.insert(
-      DBContract.DBEntry.TABLE_NAME,
+      DBHelper.TABLE_NAME,
       null, values);
 
 
@@ -75,14 +75,14 @@ public class DisplayMessageActivity extends AppCompatActivity {
     // you will actually use after this query
 
     String[] projection = {
-      DBContract.DBEntry._ID,
-      DBContract.DBEntry.COLUMN_FIRST_NAME,
-      DBContract.DBEntry.COLUMN_LAST_NAME
+      DBHelper.COLUMN_ID,
+      DBHelper.COLUMN_FIRST_NAME,
+      DBHelper.COLUMN_LAST_NAME
     };
 
     // We can control how we want to sort the results in the resulting Cursor.
     // Here we want to sort the surnames descending.
-    String sortOrder = DBContract.DBEntry.COLUMN_FIRST_NAME + "DESC";
+    String sortOrder = DBHelper.COLUMN_FIRST_NAME + "DESC";
 
     /*
     Cursor cursor = db.query(DBContract.DBEntry.TABLE_NAME, // The table to query

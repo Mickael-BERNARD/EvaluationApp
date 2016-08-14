@@ -6,6 +6,7 @@
   android:layout_height="wrap_content"
   android:layout_gravity="bottom|end"
   android:orientation="horizontal">
+
   <EditText android:id="@+id/edit_message"
     android:layout_weight="1"
     android:layout_width="0dp"

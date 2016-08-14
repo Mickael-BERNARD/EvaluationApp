@@ -16,16 +16,10 @@ public class DBContract {
 
 
 
-
-
-
-
   /*Inner class that defines the table's contents*/
   public static abstract class DBEntry implements BaseColumns{
     // Labels table name
 
-    public static final String TABLE_NAME = "USER_LIST";
-    public static final String COLUMN_ID = "ID";
     public static final String COLUMN_FIRST_NAME = "FIRST_NAME";
     public static final String COLUMN_LAST_NAME = "LAST_NAME";
    }
