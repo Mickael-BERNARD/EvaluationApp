@@ -37,7 +37,7 @@ private static String DML_TYPE;
       //==============================
       // Initialize DB:
       DBHelper database = new DBHelper(MainActivity.this);
-
+/*
       // Crud operations
       // Add Users
 
@@ -50,7 +50,8 @@ private static String DML_TYPE;
       // Delete one book
       database.deleteRecord(userInputContracts.get(0));
       //get all books
-      database.getAllUsers();
+      database.getAllUsers();*/
+      database.eraseAllUsers();
 
     }
 

@@ -3,6 +3,8 @@ apply plugin: 'com.android.application'
 
 
 android {
+
+
   /*The platform version against which the app is compiled*/
     compileSdkVersion 24
 
@@ -51,6 +53,11 @@ dependencies {
   androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2.1'
   // Set this dependency to build and run UI Automator tests
   androidTestCompile 'com.android.support.test.uiautomator:uiautomator-v18:2.1.2'
+
+  // Dependency to use to test the database
+  androidTestCompile('com.android.support.test:runner:0.3'){
+    exclude group: 'com.android.support', module: 'support-annotations'
+  }
 
 
   // Included to use the Hamcrest library
