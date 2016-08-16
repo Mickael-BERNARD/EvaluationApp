@@ -45,9 +45,7 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
       }*/
       //==============================
-
-      /*
-
+/*
       // Crud operations
       // Add Users
 
@@ -61,7 +59,9 @@ public class MainActivity extends AppCompatActivity {
       database.deleteRecord(userInputContracts.get(0));
       //get all books
       database.getAllUsers();*/
+
       //database.eraseAllUsers();
+
     }
 
   public void goToProfileCreationPage(View view){

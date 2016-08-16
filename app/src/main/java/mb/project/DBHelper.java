@@ -144,7 +144,10 @@ public class DBHelper extends SQLiteOpenHelper {
     database.close();
     Log.d("deleteBook", contract.toString());
     return value;
+
   }
+
+
 
 
 
