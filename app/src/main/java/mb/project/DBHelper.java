@@ -29,8 +29,10 @@ public class DBHelper extends SQLiteOpenHelper {
   // Database Name
   public static final String DATABASE_NAME = "Feed.db";
 
-  public DBHelper(Context context){
+  public DBHelper(Context context)
+  {
     super(context, DATABASE_NAME, null, DATABASE_VERSION);
+
   }
 
 
@@ -83,7 +85,7 @@ public class DBHelper extends SQLiteOpenHelper {
   }
 
   //2. INSERTION
-  public void insertUser(UserInputContract contract){
+  public long insertUser(UserInputContract contract){
     Log.d("addUser",contract.toString());
 
     // Get reference to a writable DB
@@ -93,9 +95,10 @@ public class DBHelper extends SQLiteOpenHelper {
     contentValues.put(COLUMN_FIRST_NAME, contract.getFirstName());
     contentValues.put(COLUMN_LAST_NAME, contract.getLastName());
     // Insert Row (-> this method returns the row of the newly inserted row or -1 if an error occurred)
-    database.insert(TABLE_NAME, null, contentValues);
+    long index = database.insert(TABLE_NAME, null, contentValues);
     //For safe coding, it is better to close the database once we are done with our operation. -
     database.close();
+    return index;
   }
 
   public void insertRecordAlternative(UserInputContract contract){
@@ -109,7 +112,8 @@ public class DBHelper extends SQLiteOpenHelper {
   // UPDATE RECORDS (or rows)
 
   // V.1:
-  public void updateRecord(UserInputContract contract){
+  // This update method uses the id of the person!
+  public void updateUser(UserInputContract contract){
     // Get a reference to the writable DB
     SQLiteDatabase database = this.getReadableDatabase();
     // Create contentValues
@@ -131,17 +135,26 @@ public class DBHelper extends SQLiteOpenHelper {
   }
 
   // DELETE records
-
-  public void deleteRecord( UserInputContract contract){
+// Uses the ID to delete!
+  public long deleteRecord( UserInputContract contract){
     // Get reference to writable DB
     SQLiteDatabase database = this.getReadableDatabase();
     // Delete: Returns the number of rows affected.
-    database.delete(TABLE_NAME, COLUMN_ID + " = ?", new String[]{String.valueOf(contract.getID())});
+    long value = database.delete(TABLE_NAME, COLUMN_ID + " = ?", new String[]{String.valueOf(contract.getID())});
     database.close();
     Log.d("deleteBook", contract.toString());
+    return value;
   }
 
-  // TODO : Make a remove all method (dangerous)
+
+
+  public void eraseAllUsers(){
+    // Get reference to writable DB
+    SQLiteDatabase database = this.getReadableDatabase();
+    database.execSQL("delete from "+ TABLE_NAME);
+    database.close();
+  }
+
 
   // SELECTING RECORDS
 
@@ -177,7 +190,7 @@ public class DBHelper extends SQLiteOpenHelper {
   }
 
 
-  
+
   /**
    * Selecting ALL the data of the database
    * @return an arrayList containing all the data in the DB in the form of

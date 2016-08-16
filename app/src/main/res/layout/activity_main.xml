@@ -8,7 +8,12 @@
     android:fitsSystemWindows="true"
     tools:context="mb.project.MainActivity">
 
-    <!-- For the tab menu -->
+
+  <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
     <android.support.design.widget.AppBarLayout
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
@@ -23,7 +28,9 @@
 
     </android.support.design.widget.AppBarLayout>
 
-  <!-- For the content of the page -->
     <include layout="@layout/content_main"/>
+  </LinearLayout>
+  <!-- For the tab menu -->
+
 
 </android.support.design.widget.CoordinatorLayout>

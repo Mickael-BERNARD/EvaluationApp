@@ -30,9 +30,8 @@ public class DisplayMessageActivity extends AppCompatActivity {
     Intent intent = getIntent();
     //The call getStringExtra() retrieves the data from the first activity.
     String message = intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
-    // Make 2 text views:
+
     TextView textView = new TextView(this);
-    TextView testVariable = new TextView(this);
 
     textView.setTextSize(40);
     textView.setText(message);

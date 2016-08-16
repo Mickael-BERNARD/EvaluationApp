@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:paddingBottom="@dimen/activity_vertical_margin"
+  android:paddingLeft="@dimen/activity_horizontal_margin"
+  android:paddingRight="@dimen/activity_horizontal_margin"
+  android:paddingTop="@dimen/activity_vertical_margin"
+  tools:context="mb.project.UserProfileCreationPage">
+  <!--
+    <EditText android:id="@+id/edit_message"
+    android:layout_width="0dp"
+    android:layout_height="0dp"
+    android:hint="@string/hello_world"
+    android:onClick="sendMessage" />
+   -->
+
+  <EditText
+    android:layout_margin="10dp"
+    android:id="@+id/p_first_name"
+    android:hint="Surnom"
+    android:layout_width="match_parent"
+    android:layout_height="45dp" />
+  <EditText
+    android:layout_margin="10dp"
+    android:layout_below="@+id/p_first_name"
+    android:id="@+id/p_last_name"
+    android:hint="Nom de famille"
+    android:layout_width="match_parent"
+    android:layout_height="45dp" />
+  <EditText
+    android:layout_below="@+id/p_last_name"
+    android:layout_margin="10dp"
+    android:id="@+id/p_country"
+    android:hint="Pays visité"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" />
+
+  <EditText
+    android:layout_below="@+id/p_country"
+    android:layout_margin="10dp"
+    android:id="@+id/p_description"
+    android:hint="Une description de votre séjour à l'étranger"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" />
+
+  <TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="Test"
+    android:textColor="#ff0000"
+    android:layout_below="@+id/p_description"
+    android:id="@+id/errorMessage" />
+
+
+  <Button
+    android:id="@+id/btn_next"
+    android:text="Next"
+    android:layout_width="150dp"
+    android:layout_height="45dp"
+    android:layout_below="@+id/errorMessage"
+    android:layout_centerHorizontal="true"
+    android:onClick="submitProfile"
+    />
+
+
+
+</RelativeLayout>

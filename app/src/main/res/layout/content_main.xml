@@ -5,14 +5,28 @@
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
   android:layout_gravity="bottom|end"
-  android:orientation="horizontal">
+  android:orientation="vertical"
+  android:background="#cc8e8e">
 
-  <EditText android:id="@+id/edit_message"
-    android:layout_weight="1"
-    android:layout_width="0dp"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent">
+  <TextView
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:hint="@string/hello_world"
-    android:onClick="sendMessage"
-    />
+    android:text="Debug Page"
+    android:textColor="#ec0707"
+    android:textSize="24dp"
+    android:singleLine="true" />
+  <Button
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:hint="Navigate to User Profile Creation Page"
+    android:onClick="goToProfileCreationPage"/>
+  <Button
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:hint="Navigate to UserList" />
+
+
 
 </LinearLayout>

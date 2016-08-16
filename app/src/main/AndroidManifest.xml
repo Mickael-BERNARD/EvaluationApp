@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
   package="mb.project">
 
-  <!-- TODO:We will be reading an INTERNAL storage space. Adapt the permissions accordingly -->
+
   <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
   <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
   <uses-permission android:name="android.permission.INTERNET" />
@@ -27,6 +27,7 @@
     </activity>
     <activity android:name=".DisplayMessageActivity" />
     <activity android:name=".TableManipulationActivity" />
+    <activity android:name=".UserProfileCreationPage"></activity>
   </application>
 
 </manifest>

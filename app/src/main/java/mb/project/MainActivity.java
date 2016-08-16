@@ -13,12 +13,15 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
+  // We need to change this value in order to change the registration status of the user.
+  public boolean userNotRegistered = true;
 
-private static String DML_TYPE;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,15 +31,22 @@ private static String DML_TYPE;
       // The layout file is defined in the project res/layout/activity_main.xml file
       //to inflate the activity's UI:
         setContentView(R.layout.activity_main);
-
       // The toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-
+      //TODO: Automatically go to registration screen at the start of the activity if the user is not registered
+      /**
+       * We check to see if the user is registered:
+       */
+      /*
+      if (!userNotRegistered){
+        Intent intent = new Intent(this, UserProfileCreationPage.class);
+        startActivity(intent);
+      }*/
       //==============================
-      // Initialize DB:
-      DBHelper database = new DBHelper(MainActivity.this);
+
+      /*
 
       // Crud operations
       // Add Users
@@ -50,9 +60,16 @@ private static String DML_TYPE;
       // Delete one book
       database.deleteRecord(userInputContracts.get(0));
       //get all books
-      database.getAllUsers();
-
+      database.getAllUsers();*/
+      //database.eraseAllUsers();
     }
+
+  public void goToProfileCreationPage(View view){
+    Intent intent = new Intent(this, UserProfileCreationPage.class);
+    startActivity(intent);
+  }
+
+
 
   /*
   private void onAddUserProfile(){
@@ -66,8 +83,8 @@ private static String DML_TYPE;
   }*/
 
 
-
   public final static String EXTRA_MESSAGE = "mb.project.MESSAGE";
+  /*
   public void sendMessage (View view) {
     // The view will the the View that was clicked
     // Do something in response to the button
@@ -81,7 +98,7 @@ private static String DML_TYPE;
     // An Intent can carry data types as key-value pairs called extras.
     intent.putExtra(EXTRA_MESSAGE, message);
     startActivity(intent);
-  }
+  }*/
 
 
   @Override

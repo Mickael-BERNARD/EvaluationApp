@@ -19,4 +19,10 @@ public class ExampleUnitTest {
     assertTrue(true);
   }
 
+  @Test
+  public void smallTest() throws Exception{
+    String testString = "";
+    assertTrue(testString.isEmpty());
+  }
+
 }
