@@ -7,7 +7,8 @@
   android:paddingLeft="@dimen/activity_horizontal_margin"
   android:paddingRight="@dimen/activity_horizontal_margin"
   android:paddingTop="@dimen/activity_vertical_margin"
-  tools:context="mb.project.UserWall">
+  tools:context="mb.project.UserWall"
+  android:id="@+id/ck_">
 
   <TextView
     android:layout_width="wrap_content"
@@ -21,4 +22,12 @@
     android:text="New Text"
     android:id="@+id/w_lastName"
     android:layout_below="@+id/w_firstName" />
+
+  <TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:id="@+id/textView"
+    android:layout_alignParentStart="false"
+    android:layout_below="@+id/w_lastName" />
+
 </RelativeLayout>

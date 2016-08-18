@@ -4,12 +4,17 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
 public class UserProfileCreationPage extends AppCompatActivity {
 
   DBHelper database;
+  private RadioButton rb_optionY;
+  private RadioButton rb_optionN;
+
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -17,7 +22,19 @@ public class UserProfileCreationPage extends AppCompatActivity {
 
     // Initialise the database:
   database = new DBHelper(UserProfileCreationPage.this);
+    addListenerToButton();
+  }
 
+  public void addListenerToButton(){
+    rb_optionY = (RadioButton) findViewById(R.id.rb_oui);
+    rb_optionN = (RadioButton) findViewById(R.id.rb_non);
+
+    rb_optionY.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View view) {
+
+      }
+    });
   }
 
   /**
@@ -25,6 +42,7 @@ public class UserProfileCreationPage extends AppCompatActivity {
    * @param view
    */
   public void submitProfile(View view){
+
     // We will read the content of the text fields
     // and create a contract object from it.
     EditText editTextFirstName = (EditText) findViewById(R.id.p_first_name);
