@@ -1,21 +1,16 @@
 package mb.project;
 
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
+
 import android.os.Bundle;
-import android.provider.SyncStateContract;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.EditText;
-import android.widget.TextView;
 
-import java.util.ArrayList;
+
 
 public class MainActivity extends AppCompatActivity {
   // We need to change this value in order to change the registration status of the user.
@@ -39,6 +34,12 @@ public class MainActivity extends AppCompatActivity {
       /**
        * We check to see if the user is registered:
        */
+
+      DBHelper database = new DBHelper(this);
+      database.eraseAllUsers();
+      database.insertUser(new UserInputContract("Hillary", "Clinton"));
+      database.insertUser(new UserInputContract("Donald","Trump"));
+      database.insertUser(new UserInputContract("Barrack","Obama"));
       /*
       if (!userNotRegistered){
         Intent intent = new Intent(this, UserProfileCreationPage.class);
@@ -49,9 +50,9 @@ public class MainActivity extends AppCompatActivity {
       // Crud operations
       // Add Users
 
-      database.insertUser(new UserInputContract("Hillary", "Clinton"));
-      database.insertUser(new UserInputContract("Donald","Trump"));
-      database.insertUser(new UserInputContract("Barrack","Obama"));
+
+
+
 
       // Get All books
       ArrayList<UserInputContract> userInputContracts = database.getAllUsers();
@@ -66,6 +67,10 @@ public class MainActivity extends AppCompatActivity {
 
   public void goToProfileCreationPage(View view){
     Intent intent = new Intent(this, UserProfileCreationPage.class);
+    startActivity(intent);
+  }
+  public void goToUserlistView(View view){
+    Intent intent = new Intent(this, UserListView.class);
     startActivity(intent);
   }
 

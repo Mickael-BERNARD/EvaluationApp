@@ -1,6 +1,7 @@
 package mb.project;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.annotation.ArrayRes;
 import android.support.test.InstrumentationRegistry;
@@ -113,8 +114,10 @@ public class DBHelperTest {
 
   @Test
   public void testGetUser() throws  Exception{
+    dbHelper.insertUser(new UserInputContract("Barrack", "Obama"));
     dbHelper.insertUser(new UserInputContract("Hillary", "Clinton"));
-    UserInputContract contract =  dbHelper.getUser(1);
+
+    UserInputContract contract =  dbHelper.getUser(2);
     //===
     assertTrue(contract.getFirstName().compareTo("Hillary")==0);
     assertTrue(contract.getLastName().compareTo("Clinton")==0);
@@ -134,5 +137,22 @@ public class DBHelperTest {
     assertTrue(contract.getLastName().compareTo("Trump")==0);
     // We make sure there is only one row left in the database.
     assertTrue(dbHelper.getAllUsers().size()==1);
+  }
+
+  @Test
+  public void testGetAllUsersAlt() throws Exception{
+    // We add 3 users
+    dbHelper.insertUser(new UserInputContract("Hillary", "Clinton"));
+    dbHelper.insertUser(new UserInputContract("Donald","Trump"));
+    dbHelper.insertUser(new UserInputContract("Barrack","Obama"));
+    // We recover the cursor:
+    Cursor cursor = dbHelper.getAllUsersAlt();
+    // We move to the first
+    cursor.moveToFirst();
+    String s_firstName = cursor.getString(cursor.getColumnIndexOrThrow(DBHelper.COLUMN_FIRST_NAME));
+    String s_lastName = cursor.getString(cursor.getColumnIndexOrThrow(DBHelper.COLUMN_LAST_NAME));
+    assertTrue(s_firstName.compareTo("Hillary")==0);
+    assertTrue(s_lastName.compareTo("Clinton")==0);
+
   }
 }

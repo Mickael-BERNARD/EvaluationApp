@@ -27,7 +27,7 @@ public class DBHelper extends SQLiteOpenHelper {
   // Database Version
   public static final int DATABASE_VERSION =  1;
   // Database Name
-  public static final String DATABASE_NAME = "Feed.db";
+  public static final String DATABASE_NAME = "Feed.sqlite";
 
   public DBHelper(Context context)
   {
@@ -41,7 +41,7 @@ public class DBHelper extends SQLiteOpenHelper {
       // User Table name
       public static final String TABLE_NAME = "USER_LIST";
       // User Table Columns names
-      public static final String COLUMN_ID = "ID";
+      public static final String COLUMN_ID = "_id";
       public static final String COLUMN_FIRST_NAME = "FIRST_NAME";
       public static final String COLUMN_LAST_NAME = "LAST_NAME";
 
@@ -149,8 +149,6 @@ public class DBHelper extends SQLiteOpenHelper {
 
 
 
-
-
   public void eraseAllUsers(){
     // Get reference to writable DB
     SQLiteDatabase database = this.getReadableDatabase();
@@ -172,7 +170,7 @@ public class DBHelper extends SQLiteOpenHelper {
     // Build query
     Cursor cursor = db.query(TABLE_NAME, // table
       COLUMNS, // column names
-      " id=?", // selections
+      " _id=?", // selections
       new String[]{String.valueOf(id)}, // selection args
       null, // group by
       null, // having
@@ -194,11 +192,14 @@ public class DBHelper extends SQLiteOpenHelper {
 
 
 
+
+
   /**
    * Selecting ALL the data of the database
    * @return an arrayList containing all the data in the DB in the form of
    * UserInputContract class objects
      */
+
   public ArrayList<UserInputContract> getAllUsers(){
     ArrayList<UserInputContract> contracts = new ArrayList<UserInputContract>();
 
@@ -226,6 +227,15 @@ public class DBHelper extends SQLiteOpenHelper {
     return contracts; // The arrayList
   }
 
+  public Cursor getAllUsersAlt(){
+    SQLiteDatabase database = this.getReadableDatabase();
+    String[] projections = {"_id", COLUMN_FIRST_NAME, COLUMN_LAST_NAME};
+    Cursor cursor = database.query(TABLE_NAME,projections,null,null,null,null,null);
+
+    Log.d("getAllUsersAlt()","");
+    return cursor;
+
+  }
   /**
    * Same as before except with a Cursor declaration in SQL.
    * @return
