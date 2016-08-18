@@ -1,5 +1,6 @@
 package mb.project;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -8,13 +9,14 @@ import android.widget.TextView;
 
 public class UserProfileCreationPage extends AppCompatActivity {
 
+  DBHelper database;
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_user_profile_creation_page);
 
     // Initialise the database:
-    DBHelper database = new DBHelper(UserProfileCreationPage.this);
+  database = new DBHelper(UserProfileCreationPage.this);
 
   }
 
@@ -39,7 +41,11 @@ public class UserProfileCreationPage extends AppCompatActivity {
       UserInputContract contract = new UserInputContract(firstName,lastName);
       contract.setFirstName(firstName);
       contract.setLastName(lastName);
-      textView.setText("");
+      database.insertUser(contract);
+      // Return to the main page
+      finish();
+
+
 
     }
   }

@@ -37,9 +37,7 @@ public class MainActivity extends AppCompatActivity {
 
       DBHelper database = new DBHelper(this);
       database.eraseAllUsers();
-      database.insertUser(new UserInputContract("Hillary", "Clinton"));
-      database.insertUser(new UserInputContract("Donald","Trump"));
-      database.insertUser(new UserInputContract("Barrack","Obama"));
+
       /*
       if (!userNotRegistered){
         Intent intent = new Intent(this, UserProfileCreationPage.class);
