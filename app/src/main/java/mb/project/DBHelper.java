@@ -161,7 +161,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
 
   /**
-   * Selecting ONE row of the database
+   * Selecting ONE row of the database (using it's id)
    */
 
   public UserInputContract getUser(int id){

@@ -1,8 +1,12 @@
 package mb.project;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 
@@ -35,6 +39,16 @@ public class UserListView extends Activity {
     dbHelper.close();
 
   }
+
+  public void handleOnCLick(View view){
+    int position = (int)  view.getTag();
+    Log.d("handleOnCLick","got position:"+position);
+    Intent intent = new Intent(this, UserWall.class);
+    intent.putExtra("position",position);
+    startActivity(intent);
+  }
+
+
 
 
 }

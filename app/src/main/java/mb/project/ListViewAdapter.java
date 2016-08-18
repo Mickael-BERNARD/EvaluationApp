@@ -34,15 +34,22 @@ public class ListViewAdapter extends CursorAdapter{
   @Override
   public void bindView(View view, Context context, Cursor cursor) {
     // Find fields to populate in inflated template
+
     TextView firstName = (TextView) view.findViewById(R.id.tv_first_name);
     TextView lastName = (TextView) view.findViewById(R.id.tv_last_name);
     // Extract properties from the cursor
+    int position = cursor.getInt(cursor.getColumnIndexOrThrow(DBHelper.COLUMN_ID));
+    Log.d("Apdapter","position="+position);
     String s_firstName = cursor.getString(cursor.getColumnIndexOrThrow(DBHelper.COLUMN_FIRST_NAME));
     String s_lastName = cursor.getString(cursor.getColumnIndexOrThrow(DBHelper.COLUMN_LAST_NAME));
     Log.d("Apdapter","firstName="+s_firstName);
     //Populate fields with extracted properties
     firstName.setText(s_firstName);
     lastName.setText(s_lastName);
+    // We use a tag to store additional data within a view without
+    // having to resort to an additional data structure.
+    view.setTag(position);
+
 
     /*
     final UserInputContract contract = UserInputContract.fromCursor(cursor);

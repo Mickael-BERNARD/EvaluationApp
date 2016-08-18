@@ -4,7 +4,9 @@
   android:layout_height="60dp"
   android:layout_marginTop="16dp"
   android:background="@android:color/holo_green_light"
-  android:orientation="vertical">
+  android:orientation="vertical"
+  android:clickable="true"
+  android:onClick="handleOnCLick">
 
   <TextView
     android:id="@+id/tv_first_name"
