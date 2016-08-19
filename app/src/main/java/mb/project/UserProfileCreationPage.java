@@ -3,6 +3,7 @@ package mb.project;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -12,8 +13,7 @@ import android.widget.TextView;
 public class UserProfileCreationPage extends AppCompatActivity {
 
   DBHelper database;
-  private RadioButton rb_optionY;
-  private RadioButton rb_optionN;
+
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -22,20 +22,10 @@ public class UserProfileCreationPage extends AppCompatActivity {
 
     // Initialise the database:
   database = new DBHelper(UserProfileCreationPage.this);
-    addListenerToButton();
+    // Make a call to the page widgets:
+
   }
 
-  public void addListenerToButton(){
-    rb_optionY = (RadioButton) findViewById(R.id.rb_oui);
-    rb_optionN = (RadioButton) findViewById(R.id.rb_non);
-
-    rb_optionY.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View view) {
-
-      }
-    });
-  }
 
   /**
    * Creates an UserInputContract based on input: [firstName,lastName]
@@ -54,7 +44,7 @@ public class UserProfileCreationPage extends AppCompatActivity {
     // We check to see if the the fields we need are filled.
     if (firstName.isEmpty() || lastName.isEmpty()){
 
-      textView.setText("Erreur: Veuillez remplir les champs");
+      textView.setText("Erreur: Veuillez remplir au moins les deux premiers champs indiqués");
     }else {
       UserInputContract contract = new UserInputContract(firstName,lastName);
       contract.setFirstName(firstName);
@@ -62,9 +52,6 @@ public class UserProfileCreationPage extends AppCompatActivity {
       database.insertUser(contract);
       // Return to the main page
       finish();
-
-
-
     }
   }
 

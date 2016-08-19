@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
@@ -16,97 +17,60 @@
     android:onClick="sendMessage" />
    -->
 
+
+
   <EditText
-    android:layout_margin="10dp"
+    android:layout_marginLeft="10dp"
     android:id="@+id/p_first_name"
     android:hint="Surnom"
     android:layout_width="match_parent"
     android:layout_height="45dp" />
   <EditText
-    android:layout_margin="10dp"
+    android:layout_marginLeft="10dp"
     android:layout_below="@+id/p_first_name"
     android:id="@+id/p_last_name"
     android:hint="Nom de famille"
     android:layout_width="match_parent"
     android:layout_height="45dp" />
 
-  <TextView
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="Avez vous déja fait dans le cadre de vos études à Polytech un séjour à l&apos;étranger?"
-    android:id="@+id/textView2"
-    android:layout_below="@+id/p_last_name"
+  <EditText
     android:layout_marginLeft="10dp"
-    android:textSize="17dp" />
-<RadioGroup
-  android:layout_width="match_parent"
-  android:layout_height="wrap_content"
-  android:layout_below="@+id/textView2"
-  android:weightSum="1"
-  android:id="@+id/radioGroup"
-  android:gravity="left"
-  android:orientation="horizontal"
-  >
-
-  <RadioButton
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="Oui"
-    android:id="@+id/rb_oui"
-    android:layout_marginLeft="10dp"
-    android:layout_gravity="center_horizontal"
-    android:layout_alignParentTop="true"
-    android:layout_alignParentStart="true"
-    android:layout_marginStart="15dp" />
-
-  <RadioButton
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="Non"
-    android:id="@+id/rb_non"
-    android:layout_alignParentTop="true"
-    android:layout_toEndOf="@+id/rb_oui"
-    android:layout_marginLeft="20dp"
-    />
-
-
-</RadioGroup>
-
+    android:id="@+id/p_email"
+    android:hint="Adresse mail"
+    android:layout_width="match_parent"
+    android:layout_height="45dp"
+    android:layout_below="@+id/p_last_name" />
 
   <EditText
-    android:layout_margin="10dp"
-    android:id="@+id/p_country"
-    android:hint="Pays visité"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_below="@+id/radioGroup" />
+    android:layout_marginLeft="10dp"
 
-  <EditText
-    android:layout_below="@+id/p_country"
-    android:layout_margin="10dp"
-    android:id="@+id/p_description"
-    android:hint="Une description de votre séjour à l'étranger"
+    android:id="@+id/p_telNum"
+    android:hint="Numéro de téléphone"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content" />
+    android:layout_height="45dp"
+    android:layout_below="@+id/p_email" />
 
   <TextView
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:text="Test"
     android:textColor="#ff0000"
-    android:layout_below="@+id/p_description"
-    android:id="@+id/errorMessage" />
-
+    android:id="@+id/errorMessage"
+    android:layout_toLeftOf="@+id/btn_next"
+    android:layout_alignParentLeft="true"
+    android:layout_alignBottom="@+id/btn_next"
+    android:layout_alignTop="@+id/btn_next" />
 
   <Button
     android:id="@+id/btn_next"
     android:text="Next"
     android:layout_width="150dp"
     android:layout_height="45dp"
-    android:layout_below="@+id/errorMessage"
     android:layout_centerHorizontal="true"
     android:onClick="submitProfile"
-    />
+    android:layout_alignParentRight="true"
+    android:layout_below="@+id/p_telNum" />
+
 
 
 

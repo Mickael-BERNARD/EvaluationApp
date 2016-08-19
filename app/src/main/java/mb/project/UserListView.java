@@ -14,6 +14,7 @@ import android.widget.SimpleCursorAdapter;
  * Created by Mickaël BERNARD on 17-Aug-16.
  */
 public class UserListView extends Activity {
+
   private DBHelper dbHelper;
   private ListViewAdapter dataAdapter;
 
