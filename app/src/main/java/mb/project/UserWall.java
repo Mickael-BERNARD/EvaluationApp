@@ -6,6 +6,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
 
+import mb.project.Database.DBHelper;
+import mb.project.Database.ContractAccount;
+
 public class UserWall extends AppCompatActivity {
 
   @Override
@@ -21,7 +24,7 @@ public class UserWall extends AppCompatActivity {
     //we load it directly from the Database.
     // TODO: Handle  the case where the profile has been deleted during the loading of the new activity.
     DBHelper dbHelper = new DBHelper(this);
-    UserInputContract contract = dbHelper.getUser(position);
+    ContractAccount contract = dbHelper.getUser(position);
     Log.d("UserWall","FirstName="+contract.getFirstName());
 
     // Assign data to their containers

@@ -1,14 +1,13 @@
 package mb.project;
 
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.RadioButton;
 import android.widget.TextView;
+
+import mb.project.Database.DBHelper;
+import mb.project.Database.ContractAccount;
 
 public class UserProfileCreationPage extends AppCompatActivity {
 
@@ -46,7 +45,7 @@ public class UserProfileCreationPage extends AppCompatActivity {
 
       textView.setText("Erreur: Veuillez remplir au moins les deux premiers champs indiqués");
     }else {
-      UserInputContract contract = new UserInputContract(firstName,lastName);
+      ContractAccount contract = new ContractAccount(firstName,lastName);
       contract.setFirstName(firstName);
       contract.setLastName(lastName);
       database.insertUser(contract);

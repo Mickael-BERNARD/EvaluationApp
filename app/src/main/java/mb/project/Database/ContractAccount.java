@@ -1,21 +1,28 @@
-package mb.project;
+package mb.project.Database;
 
 import android.database.Cursor;
 
 /**
  * Created by Mickaël BERNARD on 10-Aug-16.
  */
-public class UserInputContract {
-  public UserInputContract(){}
 
-  public UserInputContract(String firstName, String lastName){
+
+public class ContractAccount {
+
+  private int ID;
+  private String firstName, lastName;
+
+
+  public ContractAccount(){}
+
+  public ContractAccount(String firstName, String lastName){
     super();
     this.firstName = firstName;
     this.lastName = lastName;
   }
 
-  private int ID;
-  private String firstName, lastName;
+
+
 
 
   public int getID(){
@@ -48,8 +55,8 @@ public class UserInputContract {
   }
 
 
-  public static UserInputContract fromCursor(Cursor cursor){
-    UserInputContract contract =  new UserInputContract();
+  public static ContractAccount fromCursor(Cursor cursor){
+    ContractAccount contract =  new ContractAccount();
     contract.setID(Integer.parseInt(cursor.getString(0)));
     contract.setFirstName(cursor.getString(1));
     contract.setLastName(cursor.getString(2));

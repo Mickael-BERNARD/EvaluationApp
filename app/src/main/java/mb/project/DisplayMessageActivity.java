@@ -1,14 +1,15 @@
 package mb.project;
 
 import android.content.ContentValues;
-import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import mb.project.Database.DBHelper;
+import mb.project.Database.TableAccounts;
 
 public class DisplayMessageActivity extends AppCompatActivity {
 
@@ -55,15 +56,15 @@ public class DisplayMessageActivity extends AppCompatActivity {
     //[!!]
     // Create a new [map of values], where column names are keys
     ContentValues values = new ContentValues();
-    values.put(DBHelper.COLUMN_FIRST_NAME,"Thomas");
-    values.put(DBHelper.COLUMN_LAST_NAME,"Edison");
+    values.put(TableAccounts.COLUMN_FIRST_NAME,"Thomas");
+    values.put(TableAccounts.COLUMN_LAST_NAME,"Edison");
 
     // Insert the new row, returning the primary key value of the new row
     long newRowId;
     // Arguments are: table name,
     // name of a column in which the framework can insert NULL in the event that contentValues is empty
     newRowId = db.insert(
-      DBHelper.TABLE_NAME,
+      TableAccounts.TABLE_NAME,
       null, values);
 
 
@@ -74,14 +75,14 @@ public class DisplayMessageActivity extends AppCompatActivity {
     // you will actually use after this query
 
     String[] projection = {
-      DBHelper.COLUMN_ID,
-      DBHelper.COLUMN_FIRST_NAME,
-      DBHelper.COLUMN_LAST_NAME
+      TableAccounts.COLUMN_ID,
+      TableAccounts.COLUMN_FIRST_NAME,
+      TableAccounts.COLUMN_LAST_NAME
     };
 
     // We can control how we want to sort the results in the resulting Cursor.
     // Here we want to sort the surnames descending.
-    String sortOrder = DBHelper.COLUMN_FIRST_NAME + "DESC";
+    String sortOrder = TableAccounts.COLUMN_FIRST_NAME + "DESC";
 
     /*
     Cursor cursor = db.query(DBContract.DBEntry.TABLE_NAME, // The table to query

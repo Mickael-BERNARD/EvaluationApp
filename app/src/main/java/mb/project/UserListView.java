@@ -6,9 +6,10 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.SimpleCursorAdapter;
+
+import mb.project.Database.DBHelper;
+import mb.project.Database.TableAccounts;
 
 /**
  * Created by Mickaël BERNARD on 17-Aug-16.
@@ -30,7 +31,7 @@ public class UserListView extends Activity {
   public void displayList() {
     Cursor cursor = dbHelper.getAllUsersAlt();
     // Select the desired columns to be bound
-    String[] fromColumns = new String[]{ DBHelper.COLUMN_FIRST_NAME,DBHelper.COLUMN_LAST_NAME};
+    String[] fromColumns = new String[]{ TableAccounts.COLUMN_FIRST_NAME,TableAccounts.COLUMN_LAST_NAME};
     // The XML defined views which the data will be bound to
     int[] to = new int[]{R.id.p_first_name,R.id.p_last_name};
     dataAdapter = new ListViewAdapter(this, cursor,0);

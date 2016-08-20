@@ -1,20 +1,16 @@
 package mb.project;
 
-import android.app.Activity;
 import android.content.Context;
 import android.database.Cursor;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.CursorAdapter;
-import android.widget.ListView;
 import android.widget.TextView;
 
-import java.util.ArrayList;
+import mb.project.Database.DBHelper;
+import mb.project.Database.TableAccounts;
 
 public class ListViewAdapter extends CursorAdapter{
 
@@ -38,10 +34,10 @@ public class ListViewAdapter extends CursorAdapter{
     TextView firstName = (TextView) view.findViewById(R.id.tv_first_name);
     TextView lastName = (TextView) view.findViewById(R.id.tv_last_name);
     // Extract properties from the cursor
-    int position = cursor.getInt(cursor.getColumnIndexOrThrow(DBHelper.COLUMN_ID));
+    int position = cursor.getInt(cursor.getColumnIndexOrThrow(TableAccounts.COLUMN_ID));
     Log.d("Apdapter","position="+position);
-    String s_firstName = cursor.getString(cursor.getColumnIndexOrThrow(DBHelper.COLUMN_FIRST_NAME));
-    String s_lastName = cursor.getString(cursor.getColumnIndexOrThrow(DBHelper.COLUMN_LAST_NAME));
+    String s_firstName = cursor.getString(cursor.getColumnIndexOrThrow(TableAccounts.COLUMN_FIRST_NAME));
+    String s_lastName = cursor.getString(cursor.getColumnIndexOrThrow(TableAccounts.COLUMN_LAST_NAME));
     Log.d("Apdapter","firstName="+s_firstName);
     //Populate fields with extracted properties
     firstName.setText(s_firstName);
