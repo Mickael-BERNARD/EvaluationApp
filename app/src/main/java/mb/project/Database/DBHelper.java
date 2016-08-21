@@ -69,7 +69,7 @@ public class DBHelper extends SQLiteOpenHelper {
   //1: CREATION
   public void onCreate(SQLiteDatabase db){
     // SQL statement to create the tables
-    String SQL_CREATE_ENTRIES_ACCOUNT = "CREATE TABLE " + TableAccounts.TABLE_NAME + " (" + TableAccounts.COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + TableAccounts.COLUMN_FIRST_NAME + TEXT_TYPE  + COMMA_SEP + TableAccounts.COLUMN_LAST_NAME  +TEXT_TYPE + " )";
+    String SQL_CREATE_ENTRIES_ACCOUNT = "CREATE TABLE " + TableAccounts.TABLE_NAME + " (" + TableAccounts.COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + TableAccounts.COLUMN_FIRST_NAME + TEXT_TYPE  + COMMA_SEP + TableAccounts.COLUMN_LAST_NAME  +TEXT_TYPE + COMMA_SEP + TableAccounts.COLUMN_EMAIL + TEXT_TYPE + COMMA_SEP + TableAccounts.COLUMN_TEL + TEXT_TYPE + " )";
     String SQL_CREATE_ENTRIES_CONTENT = "CREATE TABLE " + TableContent.TABLE_NAME + " (" + TableContent.COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + TableContent.COLUMN_USER_ID + " INTEGER ,"+ TableContent.COLUMN_COUNTRY + TEXT_TYPE  + COMMA_SEP  + TableContent.COLUMN_CITIES + TEXT_TYPE  + COMMA_SEP + TableContent.COLUMN_DESCR +TEXT_TYPE + " )";
 
 
@@ -87,6 +87,8 @@ public class DBHelper extends SQLiteOpenHelper {
     ContentValues contentValues = new ContentValues();
     contentValues.put(TableAccounts.COLUMN_FIRST_NAME, contract.getFirstName());
     contentValues.put(TableAccounts.COLUMN_LAST_NAME, contract.getLastName());
+    contentValues.put(TableAccounts.COLUMN_EMAIL, contract.getEmail());
+    contentValues.put(TableAccounts.COLUMN_TEL, contract.getTel());
     // Insert Row (-> this method returns the row of the newly inserted row or -1 if an error occurred)
     long index = database.insert(TableAccounts.TABLE_NAME, null, contentValues);
     //For safe coding, it is better to close the database once we are done with our operation. -
@@ -132,6 +134,8 @@ public class DBHelper extends SQLiteOpenHelper {
     ContentValues contentValues = new ContentValues();
     contentValues.put(TableAccounts.COLUMN_FIRST_NAME, contract.getFirstName());
     contentValues.put(TableAccounts.COLUMN_LAST_NAME, contract.getLastName());
+    contentValues.put(TableAccounts.COLUMN_EMAIL,contract.getEmail());
+    contentValues.put(TableAccounts.COLUMN_TEL, contract.getTel());
 
     // returns the number of rows affected -> those affected are the rows with COLUMN_ID = contract.getID
     database.update(TableAccounts.TABLE_NAME, // Table
@@ -229,6 +233,8 @@ public class DBHelper extends SQLiteOpenHelper {
       user.setID(Integer.parseInt(cursor.getString(0)));
       user.setFirstName(cursor.getString(1));
       user.setLastName(cursor.getString(2));
+      user.setEmail(cursor.getString(3));
+    user.setTel(cursor.getString(4));
       // Log
       Log.d("getUser(" + id + ")", user.toString());
       return user;
@@ -286,6 +292,8 @@ public ContractContent getContent(int id){
         model.setID(Integer.parseInt(cursor.getString(0)));
         model.setFirstName(cursor.getString(1));
         model.setLastName(cursor.getString(2));
+        model.setEmail(cursor.getString(3));
+        model.setTel(cursor.getString(4));
         contracts.add(model);
       }
     }
@@ -328,7 +336,7 @@ public ContractContent getContent(int id){
 
   public Cursor getAllUsersAlt(){
     SQLiteDatabase database = this.getReadableDatabase();
-    String[] projections = {"_id", TableAccounts.COLUMN_FIRST_NAME, TableAccounts.COLUMN_LAST_NAME};
+    String[] projections = {"_id", TableAccounts.COLUMN_FIRST_NAME, TableAccounts.COLUMN_LAST_NAME , TableAccounts.COLUMN_EMAIL , TableAccounts.COLUMN_TEL};
     Cursor cursor = database.query(TableAccounts.TABLE_NAME,projections,null,null,null,null,null);
 
     Log.d("getAllUsersAlt()","");

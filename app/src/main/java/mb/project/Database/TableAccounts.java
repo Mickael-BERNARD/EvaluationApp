@@ -10,6 +10,9 @@ public class TableAccounts {
   public static final String COLUMN_ID = "_id";
   public static final String COLUMN_FIRST_NAME = "FIRST_NAME";
   public static final String COLUMN_LAST_NAME = "LAST_NAME";
-  public static final String[] COLUMNS = {COLUMN_ID,COLUMN_FIRST_NAME,COLUMN_LAST_NAME};
+  public static final  String COLUMN_EMAIL = "EMAIL";
+  public static final String COLUMN_TEL = "TEL";
+
+  public static final String[] COLUMNS = {COLUMN_ID,COLUMN_FIRST_NAME,COLUMN_LAST_NAME, COLUMN_EMAIL, COLUMN_TEL};
 
 }

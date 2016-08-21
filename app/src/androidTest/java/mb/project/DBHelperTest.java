@@ -51,9 +51,9 @@ public class DBHelperTest {
      */
   @Test
   public void testInsertUser() throws Exception{
-    long value1 =  dbHelper.insertUser(new ContractAccount("Barrack","Obama"));
+    long value1 =  dbHelper.insertUser(new ContractAccount("Barrack","Obama","bo@gmial.com","003"));
     assert(value1 == 1);
-    long value2 = dbHelper.insertUser(new ContractAccount("Hillary", "Clinton"));
+    long value2 = dbHelper.insertUser(new ContractAccount("Hillary", "Clinton", "hc@gmail.com","005"));
     assert(value2 == 2);
     // Verifying that the database data is properly stored in the container class:
     ContractAccount contractAccount1 = dbHelper.getUser((int) value1);
@@ -83,9 +83,9 @@ public class DBHelperTest {
      */
   @Test
   public void testEraseAllUsers() throws Exception{
-      dbHelper.insertUser(new ContractAccount("Hillary", "Clinton"));
-     dbHelper.insertUser(new ContractAccount("Donald","Trump"));
-     dbHelper.insertUser(new ContractAccount("Barrack","Obama"));
+      dbHelper.insertUser(new ContractAccount("Hillary", "Clinton", "hc@gmail.com","005"));
+     dbHelper.insertUser(new ContractAccount("Donald","Trump","dt@gmail.com","004"));
+     dbHelper.insertUser(new ContractAccount("Barrack","Obama","bo@gmial.com","003"));
 
     // Removing all the users
     dbHelper.eraseAllUsers();
@@ -118,8 +118,8 @@ public class DBHelperTest {
      */
   @Test
   public void testEraseUser() throws Exception{
-    dbHelper.insertUser(new ContractAccount("Hillary", "Clinton"));
-    ContractAccount contract = new ContractAccount("Barrack","Obama");
+    dbHelper.insertUser(new ContractAccount("Hillary", "Clinton", "hc@gmail.com","005"));
+    ContractAccount contract = new ContractAccount("Barrack","Obama","bo@gmial.com","003");
     contract.setID(1);
     dbHelper.deleteUserAccount(contract);
     assertTrue(dbHelper.getAllUsers().size()==0);
@@ -146,9 +146,9 @@ public class DBHelperTest {
      */
   @Test
   public void testGetAllUsers() throws Exception{
-    dbHelper.insertUser(new ContractAccount("Hillary", "Clinton"));
-    dbHelper.insertUser(new ContractAccount("Donald","Trump"));
-    dbHelper.insertUser(new ContractAccount("Barrack","Obama"));
+    dbHelper.insertUser(new ContractAccount("Hillary", "Clinton", "hc@gmail.com","005"));
+    dbHelper.insertUser(new ContractAccount("Donald","Trump","dt@gmail.com","004"));
+    dbHelper.insertUser(new ContractAccount("Barrack","Obama","bo@gmial.com","003"));
    ArrayList<ContractAccount> contractAccounts =  dbHelper.getAllUsers();
     int size = contractAccounts.size();
     //===
@@ -177,8 +177,9 @@ public class DBHelperTest {
 
   @Test
   public void testGetUser() throws  Exception{
-    dbHelper.insertUser(new ContractAccount("Barrack", "Obama"));
-    dbHelper.insertUser(new ContractAccount("Hillary", "Clinton"));
+    dbHelper.insertUser(new ContractAccount("Donald","Trump","dt@gmail.com","004"));
+    dbHelper.insertUser(new ContractAccount("Hillary", "Clinton", "hc@gmail.com","005"));
+
 
     ContractAccount contract =  dbHelper.getUser(2);
     //===
@@ -204,9 +205,9 @@ public class DBHelperTest {
   @Test
   public void testUpdateUser() throws Exception{
     // We insert a user
-    dbHelper.insertUser(new ContractAccount("Hillary", "Clinton"));
+    dbHelper.insertUser(new ContractAccount("Hillary", "Clinton", "hc@gmail.com","005"));
     // We create a new user and set it's ID to 1.
-    ContractAccount contract = new ContractAccount("Donald","Trump");
+    ContractAccount contract = new ContractAccount("Donald","Trump","dt@gmail.com","004");
     contract.setID(1);
     // Update user
     dbHelper.updateUser(contract);
@@ -239,9 +240,9 @@ public class DBHelperTest {
   @Test
   public void testGetAllUsersAlt() throws Exception{
     // We add 3 users
-    dbHelper.insertUser(new ContractAccount("Hillary", "Clinton"));
-    dbHelper.insertUser(new ContractAccount("Donald","Trump"));
-    dbHelper.insertUser(new ContractAccount("Barrack","Obama"));
+    dbHelper.insertUser(new ContractAccount("Hillary", "Clinton", "hc@gmail.com","005"));
+    dbHelper.insertUser(new ContractAccount("Donald","Trump","dt@gmail.com","004"));
+    dbHelper.insertUser(new ContractAccount("Barrack","Obama","bo@gmial.com","003"));
     // We recover the cursor:
     Cursor cursor = dbHelper.getAllUsersAlt();
     // We move to the first

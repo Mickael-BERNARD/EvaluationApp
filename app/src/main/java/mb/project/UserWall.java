@@ -30,7 +30,13 @@ public class UserWall extends AppCompatActivity {
     // Assign data to their containers
     TextView firstName = (TextView) findViewById(R.id.w_firstName);
     TextView lastName = (TextView) findViewById(R.id.w_lastName);
+    TextView email = (TextView) findViewById(R.id.w_email);
+    TextView tel = (TextView) findViewById(R.id.w_tel);
+
     firstName.setText(contract.getFirstName());
     lastName.setText(contract.getLastName());
+    email.setText(contract.getEmail());
+    tel.setText(contract.getTel());
+
   }
 }
