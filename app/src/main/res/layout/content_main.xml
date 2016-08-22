@@ -45,6 +45,11 @@
     android:hint="Navigate to UserList"
     android:onClick="goToUserlistView"/>
 
+  <Button
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:onClick="goToUserProfileEdit"
+    android:hint="Navigate to UserProfileEdit" />
 
 
 </LinearLayout>

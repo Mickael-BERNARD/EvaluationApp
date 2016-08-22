@@ -28,7 +28,8 @@
     <activity android:name=".TableManipulationActivity" />
     <activity android:name=".UserProfileCreationPage" />
     <activity android:name=".UserListView" />
-    <activity android:name=".UserWall"></activity>
+    <activity android:name=".UserWall" />
+    <activity android:name=".UserProfileEdit"></activity>
   </application>
 
 </manifest>

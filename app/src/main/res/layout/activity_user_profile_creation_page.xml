@@ -69,7 +69,8 @@
     android:layout_centerHorizontal="true"
     android:onClick="submitProfile"
     android:layout_alignParentRight="true"
-    android:layout_below="@+id/p_telNum" />
+    android:layout_below="@+id/p_telNum"
+    />
 
 
 

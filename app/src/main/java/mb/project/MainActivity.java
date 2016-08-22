@@ -67,7 +67,10 @@ public class MainActivity extends AppCompatActivity {
     Intent intent = new Intent(this, UserListView.class);
     startActivity(intent);
   }
-
+  public void goToUserProfileEdit(View view){
+    Intent intent = new Intent(this, UserProfileEdit.class);
+    startActivity(intent);
+  }
 
 
   /*
