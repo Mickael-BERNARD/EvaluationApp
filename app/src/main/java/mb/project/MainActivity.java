@@ -6,20 +6,24 @@ import android.os.Bundle;
 
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import mb.project.Database.DBHelper;
 
 
 public class MainActivity extends AppCompatActivity {
+
   // We need to change this value in order to change the registration status of the user.
   public boolean userNotRegistered = true;
+  SessionManager session;
 
 
 
-    @Override
+  @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
@@ -31,10 +35,17 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+
+      // Session Manager Class
+
+
+    session = new SessionManager(this);
+   session.deleteUserAccount();
+    // Assign value to TextView
+    TextView userIdText = (TextView) findViewById(R.id.m_userId);
+    userIdText.setText(""+ session.getUserId());
+
       //TODO: Automatically go to registration screen at the start of the activity if the user is not registered
-      /**
-       * We check to see if the user is registered:
-       */
 
       DBHelper database = new DBHelper(this);
       database.eraseAllUsers();
@@ -45,22 +56,6 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
       }*/
       //==============================
-/*
-      // Crud operations
-      // Add Users
-
-
-
-
-
-      // Get All books
-      ArrayList<UserInputContract> userInputContracts = database.getAllUsers();
-      // Delete one book
-      database.deleteRecord(userInputContracts.get(0));
-      //get all books
-      database.getAllUsers();*/
-
-      //database.eraseAllUsers();
 
     }
 
@@ -128,4 +123,17 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+  public void showUserIdRefresh(){
+    TextView userIdText = (TextView) findViewById(R.id.m_userId);
+    userIdText.setText(""+ session.getUserId());
+  }
+
+  @Override
+  public void onResume(){
+    super.onResume();
+    Log.d("MainActivity","onResume was called");
+    showUserIdRefresh();
+
+  }
 }

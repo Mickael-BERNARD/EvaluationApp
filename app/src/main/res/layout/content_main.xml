@@ -17,6 +17,23 @@
     android:textColor="#ec0707"
     android:textSize="24dp"
     android:singleLine="true" />
+
+  <TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="UserId:"
+    android:id="@+id/textView"
+    android:textSize="20dp"
+    android:layout_gravity="center_horizontal" />
+
+  <TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="New Text"
+    android:id="@+id/m_userId"
+    android:layout_gravity="center_horizontal"
+    android:textSize="20dp" />
+
   <Button
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"

@@ -1,5 +1,6 @@
 package mb.project;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -13,11 +14,17 @@ public class UserProfileCreationPage extends AppCompatActivity {
 
   DBHelper database;
 
+  SessionManager session;
+
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_user_profile_creation_page);
+
+    // Session Manager
+    session = new SessionManager(getApplicationContext());
+
 
     // Initialise the database:
   database = new DBHelper(UserProfileCreationPage.this);
@@ -51,17 +58,28 @@ public class UserProfileCreationPage extends AppCompatActivity {
 
       textView.setText("Erreur: Veuillez remplir au moins les deux premiers champs indiqués");
     }else {
+      // Profile is valid: adding user to the DB
       ContractAccount contract = new ContractAccount(firstName,lastName,email, tel);
       contract.setFirstName(firstName);
       contract.setLastName(lastName);
       contract.setEmail(email);
       contract.setTel(tel);
-      database.insertUser(contract);
+      //Insert and Recover user id in Table Account:
+      long index = database.insertUser(contract);
+      // Store user ID in userVariable
+      session = new SessionManager(this);
+      session.createRegistrationSession((int) index);
+      /*
+      TextView userIdText = (TextView) findViewById(R.id.m_userId);
+      userIdText.setText(""+ session.getUserId());*/
+
       // Return to the main page
-      finish();
+      Intent intent = new Intent(this, MainActivity.class);
+      intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT); // To resume Main Activity
+      startActivity(intent);
+      //finish();
     }
   }
-
 
 
 
