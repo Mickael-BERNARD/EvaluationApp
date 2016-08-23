@@ -7,6 +7,7 @@ import android.support.test.filters.SmallTest;
 import android.support.test.runner.AndroidJUnit4;
 import android.util.Log;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -41,6 +42,8 @@ public class DBHelperTest {
     dbHelper.eraseAllUsers();
     dbHelper.eraseAllUserContent();
   }
+  
+
 
   // INSERT RECORDS
   /**

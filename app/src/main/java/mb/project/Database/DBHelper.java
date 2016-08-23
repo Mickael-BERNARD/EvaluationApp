@@ -240,6 +240,8 @@ public class DBHelper extends SQLiteOpenHelper {
       return user;
   }
 
+
+
 public ContractContent getContent(int id){
   // Get a reference to the readable DB
   SQLiteDatabase db = this.getReadableDatabase();
@@ -267,6 +269,25 @@ public ContractContent getContent(int id){
   Log.d("getContent(" + id + ")", content.toString());
   return content;
 }
+
+  public Cursor getContentAlt(int id){
+    // Get a reference to the readable DB
+    SQLiteDatabase db = this.getReadableDatabase();
+    // Build query
+    Cursor cursor = db.query(TableContent.TABLE_NAME, // table
+      TableContent.COLUMNS, // column names
+      " _id=?", // selections
+      new String[]{String.valueOf(id)}, // selection args
+      null, // group by
+      null, // having
+      null, // order by
+      null);  // limit
+
+    // If results are found:
+    if (cursor != null) {
+      cursor.moveToFirst();}
+    return cursor;
+  }
 
   /**
    * Selecting ALL the data of the database

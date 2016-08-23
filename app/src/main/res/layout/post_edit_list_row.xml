@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+  android:layout_width="match_parent"
+  android:layout_height="60dp"
+  android:clickable="true"
+  android:background="@drawable/border"
+
+  >
+  <TextView
+    android:id="@+id/pelr_country"
+    android:layout_centerVertical="true"
+    android:layout_margin="16dp"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content" />
+
+  <TextView
+    android:id="@+id/pelr_cities"
+    android:layout_centerVertical="true"
+    android:layout_margin="16dp"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_toRightOf="@+id/pelr_country" />
+
+  <ImageView
+    android:layout_width="30dp"
+    android:layout_height="30dp"
+    android:id="@+id/pelr_edit"
+    android:clickable="true"
+    android:src="@drawable/edit"
+    android:layout_centerVertical="true"
+    android:layout_toLeftOf="@+id/pelr_delete"
+    android:layout_marginRight="20dp" />
+  <ImageView
+    android:layout_width="30dp"
+    android:layout_height="30dp"
+    android:id="@+id/pelr_delete"
+    android:src="@drawable/cross"
+
+    android:layout_centerVertical="true"
+    android:layout_alignParentRight="true"
+    android:layout_marginRight="20dp" />
+
+
+</RelativeLayout>

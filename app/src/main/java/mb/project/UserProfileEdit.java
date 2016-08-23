@@ -1,11 +1,13 @@
 package mb.project;
 
 import android.content.DialogInterface;
+import android.database.Cursor;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ListView;
 
 import java.util.ArrayList;
 
@@ -16,6 +18,7 @@ public class UserProfileEdit extends AppCompatActivity {
 
   SessionManager session;
   DBHelper database;
+  PostListAdapter dataAdapter;
 
   EditText firstName ;
   EditText lastName ;
@@ -51,6 +54,18 @@ public class UserProfileEdit extends AppCompatActivity {
     lastName.setText(account.getLastName());
     email.setText(account.getEmail());
     tel.setText(account.getTel());
+
+    displayPostList();
+
+  }
+
+
+  public void displayPostList(){
+    Cursor cursor = database.getContentAlt(userId);
+    dataAdapter = new PostListAdapter(this, cursor,0);
+    ListView postList = (ListView)findViewById(R.id.pe_postList);
+    postList.setAdapter(dataAdapter);
+    database.close();
 
   }
 
@@ -95,11 +110,7 @@ public class UserProfileEdit extends AppCompatActivity {
       AlertDialog dialog = builder.create();
       // show it
       builder.show();
-
     }
-
-
-
   }
 
 

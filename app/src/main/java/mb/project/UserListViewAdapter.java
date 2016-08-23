@@ -12,10 +12,10 @@ import android.widget.TextView;
 import mb.project.Database.DBHelper;
 import mb.project.Database.TableAccounts;
 
-public class ListViewAdapter extends CursorAdapter{
+public class UserListViewAdapter extends CursorAdapter{
 
   // Check the third parameter
-  public ListViewAdapter(Context context, Cursor cursor, int flags) {
+  public UserListViewAdapter(Context context, Cursor cursor, int flags) {
     super(context, cursor,0);
   }
 
@@ -35,10 +35,10 @@ public class ListViewAdapter extends CursorAdapter{
     TextView lastName = (TextView) view.findViewById(R.id.tv_last_name);
     // Extract properties from the cursor
     int position = cursor.getInt(cursor.getColumnIndexOrThrow(TableAccounts.COLUMN_ID));
-    Log.d("Apdapter","position="+position);
+    Log.d("ULV_Apdapter","position="+position);
     String s_firstName = cursor.getString(cursor.getColumnIndexOrThrow(TableAccounts.COLUMN_FIRST_NAME));
     String s_lastName = cursor.getString(cursor.getColumnIndexOrThrow(TableAccounts.COLUMN_LAST_NAME));
-    Log.d("Apdapter","firstName="+s_firstName);
+    Log.d("ULV_Apdapter","firstName="+s_firstName);
     //Populate fields with extracted properties
     firstName.setText(s_firstName);
     lastName.setText(s_lastName);
