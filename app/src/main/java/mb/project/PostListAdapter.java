@@ -2,6 +2,7 @@ package mb.project;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,12 +35,14 @@ public class PostListAdapter extends CursorAdapter {
     TextView cities = (TextView) view.findViewById(R.id.pelr_cities);
     // Extract properties from the cursor
     int position = cursor.getInt(cursor.getColumnIndexOrThrow(TableContent.COLUMN_ID));
+    Log.d("PostListAdapter","got position"+ position);
     String s_country = cursor.getString(cursor.getColumnIndexOrThrow(TableContent.COLUMN_COUNTRY));
     String s_cities = cursor.getString(cursor.getColumnIndexOrThrow(TableContent.COLUMN_CITIES));
 
     // Assign values to their  respective containers
     country.setText(s_country);
     cities.setText(s_cities);
+
     view.setTag(position);
 
 

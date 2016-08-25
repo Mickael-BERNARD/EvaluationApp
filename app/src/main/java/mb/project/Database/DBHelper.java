@@ -242,7 +242,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
 
 
-public ContractContent getContent(int id){
+public ContractContent getContentByRow(int id){
   // Get a reference to the readable DB
   SQLiteDatabase db = this.getReadableDatabase();
   // Build query
@@ -266,11 +266,11 @@ public ContractContent getContent(int id){
   content.setCity(cursor.getString(3));
   content.setDescription(cursor.getString(4));
   // Log
-  Log.d("getContent(" + id + ")", content.toString());
+  Log.d("getContentByRow(" + id + ")", content.toString());
   return content;
 }
 
-  public Cursor getContentAlt(int id){
+  public Cursor getContentByRowAlt(int id){
     // Get a reference to the readable DB
     SQLiteDatabase db = this.getReadableDatabase();
     // Build query
@@ -289,6 +289,24 @@ public ContractContent getContent(int id){
     return cursor;
   }
 
+  public Cursor getContentByUserAlt(int id){
+    // Get a reference to the readable DB
+    SQLiteDatabase db = this.getReadableDatabase();
+    // Build query
+    Cursor cursor = db.query(TableContent.TABLE_NAME, // table
+      TableContent.COLUMNS, // column names
+      ""+TableContent.COLUMN_USER_ID+"=?", // selections
+      new String[]{String.valueOf(id)}, // selection args
+      null, // group by
+      null, // having
+      null, // order by
+      null);  // limit
+
+    // If results are found:
+    if (cursor != null) {
+      cursor.moveToFirst();}
+    return cursor;
+  }
   /**
    * Selecting ALL the data of the database
    * @return an arrayList containing all the data in the DB in the form of

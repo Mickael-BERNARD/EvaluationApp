@@ -1,15 +1,15 @@
 package mb.project;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.Cursor;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ListView;
-
-import java.util.ArrayList;
 
 import mb.project.Database.ContractAccount;
 import mb.project.Database.DBHelper;
@@ -25,6 +25,9 @@ public class UserProfileEdit extends AppCompatActivity {
   EditText email;
   EditText tel;
 
+  ListView postList;
+
+  Cursor cursor;
   int userId;
 
 
@@ -40,9 +43,9 @@ public class UserProfileEdit extends AppCompatActivity {
     if (userId == -1) finish();
 
     // Get all the EditText components:
-    firstName = (EditText) findViewById(R.id.pe_first_name);
-    lastName = (EditText) findViewById(R.id.pe_last_name);
-    email = (EditText) findViewById(R.id.pe_email);
+    firstName = (EditText) findViewById(R.id.pc_country);
+    lastName = (EditText) findViewById(R.id.pc_cities);
+    email = (EditText) findViewById(R.id.pc_description);
     tel = (EditText) findViewById(R.id.pe_tel);
 
     // Load current profile information in the Editext component 'hints'.
@@ -59,16 +62,39 @@ public class UserProfileEdit extends AppCompatActivity {
 
   }
 
-
+  /**
+   * This method is used to get the user's post in a Cursor object and load it's content in the ListView.
+   */
   public void displayPostList(){
-    Cursor cursor = database.getContentAlt(userId);
+    cursor = database.getContentByUserAlt(userId);
     dataAdapter = new PostListAdapter(this, cursor,0);
-    ListView postList = (ListView)findViewById(R.id.pe_postList);
+   postList = (ListView)findViewById(R.id.pe_postList);
     postList.setAdapter(dataAdapter);
     database.close();
 
   }
 
+  public void handleOnClickCreatePost(View view){
+    Intent intent = new Intent(this, PostCreate.class);
+
+    startActivity(intent);
+  }
+
+  public void handleOnClickPostList(View view){
+    int position = (int) view.getTag();
+    Log.d("handleOnCLickPostList","got position:"+position);
+
+    Intent intent = new Intent(this, PostEdit.class);
+    intent.putExtra("position",position);
+    startActivity(intent);
+  }
+
+
+    /**
+     * This method checks if the user has entered in correct information and updated his account accordingly if so.
+     * Otherwise it closes the activity.
+     * @param view
+     */
   public void saveUserAccountChanges(View view){
     // Init Alertdialog builder
     AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -111,6 +137,27 @@ public class UserProfileEdit extends AppCompatActivity {
       // show it
       builder.show();
     }
+  }
+
+  @Override
+  public void onResume(){
+    super.onResume();
+    Log.d("UserProfileEdit","Activity resumed");
+    refreshPostList();
+  }
+
+  public void refreshPostList(){
+    // Reset cursor
+    cursor = database.getContentByUserAlt(userId);
+    // Reset adapter
+    dataAdapter = new PostListAdapter(this, cursor,0);
+
+    // Reset listview
+    ListView postList = (ListView)findViewById(R.id.pe_postList);
+    postList.invalidateViews();
+    postList.setAdapter(dataAdapter);
+    database.close();
+
   }
 
 

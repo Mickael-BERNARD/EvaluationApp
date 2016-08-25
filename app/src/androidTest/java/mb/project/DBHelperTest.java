@@ -7,7 +7,6 @@ import android.support.test.filters.SmallTest;
 import android.support.test.runner.AndroidJUnit4;
 import android.util.Log;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -42,7 +41,7 @@ public class DBHelperTest {
     dbHelper.eraseAllUsers();
     dbHelper.eraseAllUserContent();
   }
-  
+
 
 
   // INSERT RECORDS
@@ -67,15 +66,24 @@ public class DBHelperTest {
   public void testInsertContent() throws Exception{
     long value1 =  dbHelper.insertContent(new ContractContent(5,"Australia","Sydney","What a lovely day"));
    assertTrue(value1 == 1);
-    long value2 =  dbHelper.insertContent(new ContractContent(5,"Russia","Moscow","The red phone is silent"));
-    //assertTrue(value2 == 2);
+    long value2 =  dbHelper.insertContent(new ContractContent(4,"Russia","Moscow","The red phone is silent"));
+    assertTrue(value2 == 2);
     // Verifying that the database data is properly stored in the container class:
-    ContractContent  contractContent = dbHelper.getContent((int) value1);
+    ContractContent  contractContent = dbHelper.getContentByRow((int) value1);
     Log.d("Test", contractContent.toString());
     assertTrue(contractContent.getUserId()==5);
     assertTrue(contractContent.getCountry().compareTo("Australia")==0);
     assertTrue(contractContent.getCities().compareTo("Sydney")==0);
     assertTrue(contractContent.getDescription().compareTo("What a lovely day")==0);
+
+    ContractContent  contractContent2 = dbHelper.getContentByRow((int) value2);
+
+    assertTrue(contractContent2.getUserId()==4);
+    assertTrue(contractContent2.getCountry().compareTo("Russia")==0);
+    assertTrue(contractContent2.getCities().compareTo("Moscow")==0);
+    assertTrue(contractContent2.getDescription().compareTo("The red phone is silent")==0);
+
+
 
   }
 
@@ -191,18 +199,46 @@ public class DBHelperTest {
   }
 
   @Test
-  public void testGetUserContent(){
+  public void testGetUserContentByRow(){
     dbHelper.insertContent(new ContractContent(5,"Australia","Sydney","What a lovely day"));
     dbHelper.insertContent(new ContractContent(2,"Russia","Moscow","The red phone is silent"));
     dbHelper.insertContent(new ContractContent(1,"North Korea","Pyongyang","Great leader is best leader"));
 
-    ContractContent contract = dbHelper.getContent(2);
+    ContractContent contract = dbHelper.getContentByRow(2);
     //==
     assertTrue(contract.getUserId()==2);
     assertTrue(contract.getCountry().compareTo("Russia")==0);
     assertTrue(contract.getCities().compareTo("Moscow")==0);
     assertTrue(contract.getDescription().compareTo("The red phone is silent")==0);
   }
+
+  @Test
+  public void testGetContentByRowAlt(){
+    dbHelper.insertContent(new ContractContent(5,"Australia","Sydney","What a lovely day"));
+    dbHelper.insertContent(new ContractContent(2,"Russia","Moscow","The red phone is silent"));
+    dbHelper.insertContent(new ContractContent(1,"North Korea","Pyongyang","Great leader is best leader"));
+
+    Cursor cursor = dbHelper.getContentByRowAlt(1);
+    assertTrue( cursor.getInt(cursor.getColumnIndexOrThrow(TableContent.COLUMN_USER_ID))== 5);
+  }
+
+  @Test
+  public void testGetContentByUser(){
+    dbHelper.insertContent(new ContractContent(5,"Australia","Sydney","What a lovely day"));
+    dbHelper.insertContent(new ContractContent(2,"Russia","Moscow","The red phone is silent"));
+    dbHelper.insertContent(new ContractContent(2,"North Korea","Pyongyang","Great leader is best leader"));
+
+    Cursor cursor = dbHelper.getContentByUserAlt(2);
+    assertTrue(cursor.getInt(cursor.getColumnIndexOrThrow(TableContent.COLUMN_USER_ID))== 2);
+    assertTrue(cursor.getString(cursor.getColumnIndexOrThrow(TableContent.COLUMN_COUNTRY)).compareTo("Russia")==0);
+    assertTrue(cursor.getCount() ==2);
+    cursor.moveToNext();
+    assertTrue(cursor.getInt(cursor.getColumnIndexOrThrow(TableContent.COLUMN_USER_ID))== 2);
+    assertTrue(cursor.getString(cursor.getColumnIndexOrThrow(TableContent.COLUMN_COUNTRY)).compareTo("North Korea")==0);
+
+
+  }
+
 
   //UPDATE
   @Test
@@ -233,7 +269,7 @@ public class DBHelperTest {
     dbHelper.updateContent(contract);
 
     //===
-    contract = dbHelper.getContent(1);
+    contract = dbHelper.getContentByRow(1);
     assertTrue(contract.getCountry().compareTo("Russia")==0);
     assertTrue(contract.getCities().compareTo("Moscow")==0);
     assertTrue(contract.getDescription().compareTo("The red phone is silent")==0);

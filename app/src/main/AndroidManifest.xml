@@ -29,7 +29,10 @@
     <activity android:name=".UserProfileCreationPage" />
     <activity android:name=".UserListView" />
     <activity android:name=".UserWall" />
-    <activity android:name=".UserProfileEdit"></activity>
+    <activity android:name=".UserProfileEdit" />
+    <activity android:name=".PostEdit" />
+    <activity android:name=".UserPostView" />
+    <activity android:name=".PostCreate"></activity>
   </application>
 
 </manifest>
