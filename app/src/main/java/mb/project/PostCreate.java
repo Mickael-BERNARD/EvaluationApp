@@ -38,9 +38,9 @@ public class PostCreate extends AppCompatActivity {
     if (userId == -1) finish();
 
     // Initialize editText components:
-    country = (EditText) findViewById(R.id.pc_country);
-    cities = (EditText) findViewById(R.id.pc_cities);
-    description = (EditText) findViewById(R.id.pc_description);
+    country = (EditText) findViewById(R.id.pe_country);
+    cities = (EditText) findViewById(R.id.pe_cities);
+    description = (EditText) findViewById(R.id.pe_description);
 
   }
 

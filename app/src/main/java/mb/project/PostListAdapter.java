@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CursorAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import mb.project.Database.TableContent;
@@ -44,6 +45,10 @@ public class PostListAdapter extends CursorAdapter {
     cities.setText(s_cities);
 
     view.setTag(position);
+    ImageView delete = (ImageView) view.findViewById(R.id.pelr_delete);
+    delete.setTag(position);
+    ImageView edit = (ImageView) view.findViewById(R.id.pelr_edit);
+    edit.setTag(position);
 
 
   }

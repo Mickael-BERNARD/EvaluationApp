@@ -16,16 +16,16 @@
     android:text="Surnom: "
     android:id="@+id/textView2"
     android:textSize="15dp"
-    android:layout_alignBaseline="@+id/pc_country"
+    android:layout_alignBaseline="@+id/pe_country"
     android:layout_margin="10dp" />
 
   <EditText
     android:layout_width="match_parent"
     android:layout_height="45dp"
     android:hint="First Name"
-    android:id="@+id/pc_country"
+    android:id="@+id/pe_country"
     android:layout_toRightOf="@+id/textView2"
-    android:layout_alignLeft="@+id/pc_cities" />
+    android:layout_alignLeft="@+id/pe_cities" />
 
   <TextView
     android:layout_width="wrap_content"
@@ -33,15 +33,15 @@
     android:text="Nom de famille: "
     android:id="@+id/textView3"
     android:textSize="15dp"
-    android:layout_alignBaseline="@+id/pc_cities"
+    android:layout_alignBaseline="@+id/pe_cities"
     android:layout_margin="10dp" />
 
   <EditText
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:hint="Last Name"
-    android:id="@+id/pc_cities"
-    android:layout_below="@+id/pc_country"
+    android:id="@+id/pe_cities"
+    android:layout_below="@+id/pe_country"
     android:layout_toRightOf="@+id/textView3" />
 
   <TextView
@@ -50,16 +50,16 @@
     android:text="Adresse e-mail: "
     android:id="@+id/textView4"
     android:textSize="15dp"
-    android:layout_alignBaseline="@+id/pc_description"
+    android:layout_alignBaseline="@+id/pe_description"
     android:layout_margin="10dp" />
 
   <EditText
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:hint="E-mail adress"
-    android:id="@+id/pc_description"
-    android:layout_below="@+id/pc_cities"
-    android:layout_alignLeft="@+id/pc_country" />
+    android:id="@+id/pe_description"
+    android:layout_below="@+id/pe_cities"
+    android:layout_alignLeft="@+id/pe_country" />
 
   <TextView
     android:layout_width="wrap_content"
@@ -75,8 +75,8 @@
     android:layout_height="wrap_content"
     android:hint="Telephone number"
     android:id="@+id/pe_tel"
-    android:layout_below="@+id/pc_description"
-    android:layout_alignLeft="@+id/pc_country" />
+    android:layout_below="@+id/pe_description"
+    android:layout_alignLeft="@+id/pe_country" />
 
   <Button
     android:layout_width="wrap_content"

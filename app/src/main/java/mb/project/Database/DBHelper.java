@@ -144,6 +144,7 @@ public class DBHelper extends SQLiteOpenHelper {
       new String[]{String.valueOf(contract.getID())});
     database.close();
   }
+
   public void updateContent(ContractContent contract){
     // Get a reference to the writable DB
     SQLiteDatabase database = this.getReadableDatabase();
@@ -288,6 +289,8 @@ public ContractContent getContentByRow(int id){
       cursor.moveToFirst();}
     return cursor;
   }
+
+
 
   public Cursor getContentByUserAlt(int id){
     // Get a reference to the readable DB

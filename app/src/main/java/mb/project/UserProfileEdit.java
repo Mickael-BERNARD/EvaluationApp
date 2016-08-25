@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 
 import mb.project.Database.ContractAccount;
+import mb.project.Database.ContractContent;
 import mb.project.Database.DBHelper;
 
 public class UserProfileEdit extends AppCompatActivity {
@@ -29,6 +30,7 @@ public class UserProfileEdit extends AppCompatActivity {
 
   Cursor cursor;
   int userId;
+  private boolean deletingPost;
 
 
   @Override
@@ -43,9 +45,9 @@ public class UserProfileEdit extends AppCompatActivity {
     if (userId == -1) finish();
 
     // Get all the EditText components:
-    firstName = (EditText) findViewById(R.id.pc_country);
-    lastName = (EditText) findViewById(R.id.pc_cities);
-    email = (EditText) findViewById(R.id.pc_description);
+    firstName = (EditText) findViewById(R.id.pe_country);
+    lastName = (EditText) findViewById(R.id.pe_cities);
+    email = (EditText) findViewById(R.id.pe_description);
     tel = (EditText) findViewById(R.id.pe_tel);
 
     // Load current profile information in the Editext component 'hints'.
@@ -59,6 +61,7 @@ public class UserProfileEdit extends AppCompatActivity {
     tel.setText(account.getTel());
 
     displayPostList();
+    database.close();
 
   }
 
@@ -66,6 +69,7 @@ public class UserProfileEdit extends AppCompatActivity {
    * This method is used to get the user's post in a Cursor object and load it's content in the ListView.
    */
   public void displayPostList(){
+    database = new DBHelper(this);
     cursor = database.getContentByUserAlt(userId);
     dataAdapter = new PostListAdapter(this, cursor,0);
    postList = (ListView)findViewById(R.id.pe_postList);
@@ -96,6 +100,7 @@ public class UserProfileEdit extends AppCompatActivity {
      * @param view
      */
   public void saveUserAccountChanges(View view){
+    database = new DBHelper(this);
     // Init Alertdialog builder
     AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
@@ -137,6 +142,7 @@ public class UserProfileEdit extends AppCompatActivity {
       // show it
       builder.show();
     }
+    database.close();
   }
 
   @Override
@@ -147,6 +153,8 @@ public class UserProfileEdit extends AppCompatActivity {
   }
 
   public void refreshPostList(){
+    database = new DBHelper(this);
+    postList.setAdapter(null);
     // Reset cursor
     cursor = database.getContentByUserAlt(userId);
     // Reset adapter
@@ -156,8 +164,51 @@ public class UserProfileEdit extends AppCompatActivity {
     ListView postList = (ListView)findViewById(R.id.pe_postList);
     postList.invalidateViews();
     postList.setAdapter(dataAdapter);
-    database.close();
 
+    database.close();
+  }
+
+  public void onClickEditButton(View view){
+    int position = (int)  view.getTag();
+    Intent intent = new Intent(this, PostEdit.class);
+    intent.putExtra("position",position);
+    startActivity(intent);
+  }
+
+  public void onClickDeleteButton(View view){
+    final int position = (int)  view.getTag();
+    Log.d("setNegative"," "+position);
+    AlertDialog.Builder builder = new AlertDialog.Builder(this);
+    // A boolean because pop-up content needs to be as simple as possible
+    deletingPost = false;
+    // Show a pop-up
+  builder.setMessage("Êtes vous sûr de vouloir supprimer ce contenu?");
+
+  builder.setNegativeButton("Oui", new DialogInterface.OnClickListener() {
+    @Override
+    public void onClick(DialogInterface dialogInterface, int i) {
+      deletePost(position);
+    }
+  });
+    builder.setPositiveButton("Non", new DialogInterface.OnClickListener() {
+      @Override
+      public void onClick(DialogInterface dialogInterface, int i) {
+
+        dialogInterface.cancel();
+      }
+    });
+  builder.show();
+    Log.d("onClickDeleteButton","deletingPost= "+deletingPost);
+
+
+  }
+
+  public void deletePost( int position){
+    Log.d("deletePost","The method was called");
+    ContractContent contractContent = new ContractContent();
+    contractContent.setID(position);
+    database.deleteUserContent(contractContent);
+    refreshPostList();
   }
 
 
