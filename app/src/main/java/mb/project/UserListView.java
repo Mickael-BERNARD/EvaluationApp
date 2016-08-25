@@ -11,6 +11,7 @@ import android.widget.ListView;
 import mb.project.Database.DBHelper;
 import mb.project.Database.TableAccounts;
 
+// TODO: Refresh UserListView content upon onResume call.
 /**
  * Created by Mickaël BERNARD on 17-Aug-16.
  */
@@ -29,8 +30,8 @@ public class UserListView extends Activity {
   }
 
   public void displayList() {
-    Cursor cursor = dbHelper.getAllUsersAlt();
-    dataAdapter = new UserListViewAdapter(this, cursor,0);
+    Cursor cursor = dbHelper.getAllContentAlt();
+    dataAdapter = new UserListViewAdapter(this, cursor, dbHelper);
     ListView listView = (ListView)findViewById(R.id.listUsers);
     listView.setAdapter(dataAdapter);
     dbHelper.close();
@@ -40,7 +41,7 @@ public class UserListView extends Activity {
   public void handleOnCLick(View view){
     int position = (int)  view.getTag();
     Log.d("handleOnCLick","got position:"+position);
-    Intent intent = new Intent(this, UserWall.class);
+    Intent intent = new Intent(this, UserPostView.class);
     intent.putExtra("position",position);
     startActivity(intent);
   }

@@ -41,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
 
     session = new SessionManager(this);
    session.deleteUserAccount();
+
     // Assign value to TextView
     TextView userIdText = (TextView) findViewById(R.id.m_userId);
     userIdText.setText(""+ session.getUserId());
@@ -49,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
 
       DBHelper database = new DBHelper(this);
       database.eraseAllUsers();
-
+      database.eraseAllUserContent();
       /*
       if (!userNotRegistered){
         Intent intent = new Intent(this, UserProfileCreationPage.class);

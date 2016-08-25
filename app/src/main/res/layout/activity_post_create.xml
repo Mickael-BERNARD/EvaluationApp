@@ -15,7 +15,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:text="Post"
-    android:id="@+id/textView6"
+    android:id="@+id/upv_country"
     android:layout_alignParentTop="true"
     android:layout_alignParentStart="true"
     android:textStyle="bold"
@@ -37,7 +37,7 @@
     android:id="@+id/pc_country"
     android:layout_toRightOf="@+id/textView2"
     android:layout_alignLeft="@+id/pc_cities"
-    android:layout_below="@+id/textView6" />
+    android:layout_below="@+id/upv_country" />
 
   <TextView
     android:layout_width="wrap_content"

@@ -9,14 +9,20 @@ import android.view.ViewGroup;
 import android.widget.CursorAdapter;
 import android.widget.TextView;
 
+import mb.project.Database.ContractAccount;
 import mb.project.Database.DBHelper;
 import mb.project.Database.TableAccounts;
+import mb.project.Database.TableContent;
 
 public class UserListViewAdapter extends CursorAdapter{
 
+  DBHelper database;
+
   // Check the third parameter
-  public UserListViewAdapter(Context context, Cursor cursor, int flags) {
+  public UserListViewAdapter(Context context, Cursor cursor, DBHelper dbHelper) {
     super(context, cursor,0);
+    database = dbHelper;
+
   }
 
 // The newView method is used to inflate a new view and return it.
@@ -31,15 +37,24 @@ public class UserListViewAdapter extends CursorAdapter{
   public void bindView(View view, Context context, Cursor cursor) {
     // Find fields to populate in inflated template
 
+    TextView country = (TextView) view.findViewById(R.id.tv_country);
     TextView firstName = (TextView) view.findViewById(R.id.tv_first_name);
     TextView lastName = (TextView) view.findViewById(R.id.tv_last_name);
+
     // Extract properties from the cursor
-    int position = cursor.getInt(cursor.getColumnIndexOrThrow(TableAccounts.COLUMN_ID));
+    int position = cursor.getInt(cursor.getColumnIndexOrThrow(TableContent.COLUMN_ID));
     Log.d("ULV_Apdapter","position="+position);
-    String s_firstName = cursor.getString(cursor.getColumnIndexOrThrow(TableAccounts.COLUMN_FIRST_NAME));
-    String s_lastName = cursor.getString(cursor.getColumnIndexOrThrow(TableAccounts.COLUMN_LAST_NAME));
+    String s_country = cursor.getString(cursor.getColumnIndexOrThrow(TableContent.COLUMN_COUNTRY));
+    int userId = cursor.getInt(cursor.getColumnIndexOrThrow(TableContent.COLUMN_USER_ID));
+
+    // Retrieve user information
+    ContractAccount account = database.getUser(userId);
+
+    String s_firstName = account.getFirstName();
+    String s_lastName = account.getLastName();
     Log.d("ULV_Apdapter","firstName="+s_firstName);
     //Populate fields with extracted properties
+    country.setText(s_country);
     firstName.setText(s_firstName);
     lastName.setText(s_lastName);
     // We use a tag to store additional data within a view without

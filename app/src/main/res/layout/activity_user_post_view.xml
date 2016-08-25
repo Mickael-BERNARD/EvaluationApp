@@ -13,65 +13,94 @@
   <TextView
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:text="Post"
+    android:text="Pays :"
     android:id="@+id/textView6"
-    android:layout_alignParentTop="true"
     android:layout_alignParentStart="true"
     android:textStyle="bold"
+    android:textSize="40dp" />
+
+  <TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="Villes :"
+    android:id="@+id/textView8"
+    android:layout_below="@+id/textView6"
+    android:layout_alignParentStart="true"
+    android:textStyle="bold"
+    android:textSize="30dp"
+    android:layout_marginTop="10dp" />
+
+  <TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="Description :"
+    android:id="@+id/textView9"
+    android:layout_below="@+id/textView8"
+    android:layout_alignParentStart="true"
+    android:textStyle="bold"
+    android:textSize="30dp"
+    android:layout_marginTop="10dp" />
+
+  <TextView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="New Text"
+    android:background="@drawable/border_description"
+    android:id="@+id/upv_description"
+    android:layout_below="@+id/textView9"
+    android:layout_alignParentStart="true"
+    android:layout_marginLeft="5dp"
+    android:layout_marginTop="2dp"
+    android:layout_marginRight="5dp"
+    android:layout_marginBottom="5dp"
+    android:minHeight="100dp"
+    android:padding="10dp"
+    android:textSize="30dp" />
+
+  <TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="New Text"
+    android:id="@+id/upv_cities"
+    android:layout_toEndOf="@+id/textView8"
+    android:layout_alignBottom="@+id/textView8"
+    android:textStyle="bold"
+    android:textSize="30dp"
+    android:layout_toRightOf="@+id/textView8"
+    android:layout_marginLeft="10dp" />
+
+  <TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="New Text"
+    android:id="@+id/upv_country"
+    android:layout_alignParentTop="true"
+    android:layout_alignBottom="@+id/textView6"
+    android:layout_toRightOf="@+id/textView6"
+    android:textStyle="bold"
+    android:textSize="40dp"
+    android:layout_marginLeft="10dp" />
+
+  <TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="A post made by :"
+    android:id="@+id/textView7"
+    android:layout_below="@+id/upv_description"
+    android:layout_alignParentEnd="true"
+    android:layout_marginTop="19dp"
+    android:textSize="20dp" />
+
+  <TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:textAppearance="?android:attr/textAppearanceMedium"
+    android:text="User"
+    android:id="@+id/upv_username"
+    android:layout_marginRight="10dp"
+    android:layout_below="@+id/textView7"
+    android:layout_alignEnd="@+id/textView7"
     android:textSize="25dp" />
-
-  <TextView
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="Pays: "
-    android:id="@+id/textView2"
-    android:textSize="15dp"
-    android:layout_alignBaseline="@+id/pc_country"
-    android:layout_margin="10dp" />
-
-  <EditText
-    android:layout_width="match_parent"
-    android:layout_height="45dp"
-    android:hint="Country"
-    android:id="@+id/pc_country"
-    android:layout_toRightOf="@+id/textView2"
-    android:layout_alignLeft="@+id/pc_cities"
-    android:layout_below="@+id/textView6" />
-
-  <TextView
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="Villes: "
-    android:id="@+id/textView3"
-    android:textSize="15dp"
-    android:layout_alignBaseline="@+id/pc_cities"
-    android:layout_margin="10dp"
-    android:singleLine="true" />
-
-  <EditText
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:hint="Cities"
-    android:id="@+id/pc_cities"
-    android:layout_below="@+id/pc_country"
-    android:layout_toRightOf="@+id/textView4" />
-
-  <TextView
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="Description:"
-    android:id="@+id/textView4"
-    android:textSize="15dp"
-    android:layout_alignBaseline="@+id/pc_description"
-    android:layout_margin="10dp" />
-
-  <EditText
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:hint="Description"
-    android:id="@+id/pc_description"
-    android:layout_below="@+id/pc_cities"
-    android:layout_alignLeft="@+id/pc_country" />
 
 
 </RelativeLayout>
