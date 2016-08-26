@@ -1,19 +1,23 @@
 package mb.project;
 
 import android.content.Intent;
+import android.graphics.Paint;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 
 import mb.project.Database.ContractAccount;
 import mb.project.Database.ContractContent;
 import mb.project.Database.DBHelper;
+import mb.project.ProfileView.UserProfileView;
 
 public class UserPostView extends AppCompatActivity {
 
   DBHelper database = new DBHelper(this);
 
+  int userId;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +39,7 @@ public class UserPostView extends AppCompatActivity {
     TextView description = (TextView) findViewById(R.id.upv_description);
     TextView userName = (TextView) findViewById(R.id.upv_username);
 
-    int userId = contract.getUserId();
+    userId = contract.getUserId();
     ContractAccount account = database.getUser(userId);
     String firstName = account.getFirstName();
     String lastName = account.getLastName();
@@ -44,9 +48,16 @@ public class UserPostView extends AppCompatActivity {
     country.setText(contract.getCountry());
     cities.setText(contract.getCities());
     description.setText(contract.getDescription());
+    userName.setPaintFlags(userName.getPaintFlags() |   Paint.UNDERLINE_TEXT_FLAG);
     userName.setText(firstName+" "+lastName);
 
 
+  }
 
+  public void handleOnClickName(View view){
+    // Start the activity UserProfile View
+    Intent intent = new Intent(this, UserProfileView.class);
+    intent.putExtra("userId",userId);
+    startActivity(intent);
   }
 }

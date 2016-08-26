@@ -1,4 +1,4 @@
-package mb.project;
+package mb.project.ProfileView;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -11,10 +11,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import mb.project.Database.TableContent;
+import mb.project.R;
 
 /**
+ * An adapter for the UserProfileEdit Activity.
  * Created by Mickaël BERNARD on 23-Aug-16.
  */
+
+
 public class PostListAdapter extends CursorAdapter {
 
 
@@ -25,15 +29,15 @@ public class PostListAdapter extends CursorAdapter {
   // The newView method is used to inflate a new view and return it.
   @Override
   public View newView(Context context, Cursor cursor, ViewGroup parent) {
-    return LayoutInflater.from(context).inflate(R.layout.post_edit_list_row, parent, false);
+    return LayoutInflater.from(context).inflate(R.layout.profile_view_post_list_row, parent, false);
   }
 
   // The bindView method is used to bind all data to a given view such
   // as setting the text on a TextView.
   @Override
   public void bindView(View view, Context context, Cursor cursor) {
-    TextView country = (TextView) view.findViewById(R.id.pelr_country);
-    TextView cities = (TextView) view.findViewById(R.id.pelr_cities);
+    TextView country = (TextView) view.findViewById(R.id.pvpl_country);
+    TextView cities = (TextView) view.findViewById(R.id.pvpl_cities);
     // Extract properties from the cursor
     int position = cursor.getInt(cursor.getColumnIndexOrThrow(TableContent.COLUMN_ID));
     Log.d("PostListAdapter","got position"+ position);
@@ -45,11 +49,6 @@ public class PostListAdapter extends CursorAdapter {
     cities.setText(s_cities);
 
     view.setTag(position);
-    ImageView delete = (ImageView) view.findViewById(R.id.pelr_delete);
-    delete.setTag(position);
-    ImageView edit = (ImageView) view.findViewById(R.id.pelr_edit);
-    edit.setTag(position);
-
 
   }
 }

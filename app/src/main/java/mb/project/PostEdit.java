@@ -1,7 +1,6 @@
 package mb.project;
 
 import android.content.Intent;
-import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,6 +9,7 @@ import android.widget.EditText;
 
 import mb.project.Database.ContractContent;
 import mb.project.Database.DBHelper;
+import mb.project.ProfileEdit.UserProfileEdit;
 
 public class PostEdit extends AppCompatActivity {
 

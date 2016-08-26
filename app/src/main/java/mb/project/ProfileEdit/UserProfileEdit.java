@@ -1,4 +1,4 @@
-package mb.project;
+package mb.project.ProfileEdit;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -14,6 +14,10 @@ import android.widget.ListView;
 import mb.project.Database.ContractAccount;
 import mb.project.Database.ContractContent;
 import mb.project.Database.DBHelper;
+import mb.project.PostCreate;
+import mb.project.PostEdit;
+import mb.project.R;
+import mb.project.SessionManager;
 
 public class UserProfileEdit extends AppCompatActivity {
 

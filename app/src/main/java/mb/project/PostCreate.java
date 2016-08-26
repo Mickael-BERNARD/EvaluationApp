@@ -11,6 +11,7 @@ import android.widget.EditText;
 
 import mb.project.Database.ContractContent;
 import mb.project.Database.DBHelper;
+import mb.project.ProfileEdit.UserProfileEdit;
 
 public class PostCreate extends AppCompatActivity {
 
