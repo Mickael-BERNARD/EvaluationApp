@@ -13,6 +13,7 @@ import org.junit.runner.RunWith;
 
 import java.util.ArrayList;
 
+import mb.project.Database.ContractComment;
 import mb.project.Database.ContractContent;
 import mb.project.Database.DBHelper;
 import mb.project.Database.TableAccounts;
@@ -40,6 +41,7 @@ public class DBHelperTest {
     dbHelper = new DBHelper(context);
     dbHelper.eraseAllUsers();
     dbHelper.eraseAllUserContent();
+    dbHelper.eraseAllComments();
   }
 
 
@@ -62,6 +64,20 @@ public class DBHelperTest {
     assertTrue(contractAccount1.getFirstName().compareTo("Barrack")==0);
     assertTrue(contractAccount1.getLastName().compareTo("Obama")==0);
   }
+
+  @Test
+  public void testInsertComment() throws  Exception{
+    long value1 =  dbHelper.insertComment(new ContractComment(2,3,"Nice post"));
+    assertTrue(value1 == 1);
+    long value2 =  dbHelper.insertComment(new ContractComment(3,3,"Hey thanks"));
+      assertTrue(value2 == 2);
+    // Verifying that the database data is properly stored in the container class:
+    ContractComment  contract = dbHelper.getCommentByPostIdAndUserId(3,3);
+    Log.d("Test", contract.toString());
+    assertTrue(contract.getContent().compareTo("Hey thanks")==0);
+
+  }
+
   @Test
   public void testInsertContent() throws Exception{
     long value1 =  dbHelper.insertContent(new ContractContent(5,"Australia","Sydney","What a lovely day", "Things to see","PLaces to stay at","MOving around","Kangaroo business only","Australian education"));
@@ -107,6 +123,20 @@ public class DBHelperTest {
   }
 
   @Test
+  public void testEraseAllComments() throws  Exception{
+    dbHelper.insertComment(new ContractComment(2,3,"Nice post"));
+    dbHelper.insertComment(new ContractComment(3,3,"Hey thanks"));
+
+    // Removing all the comments
+    dbHelper.eraseAllComments();
+    // Retrieving the resulting size of the database
+    int size = dbHelper.getAllComments().size();
+    //==
+    assertTrue(size==0);
+
+  }
+
+  @Test
   public void testEraseAllUserContent() throws Exception{
     dbHelper.insertContent(new ContractContent(5,"Australia","Sydney","What a lovely day", "Things to see","PLaces to stay at","MOving around","Kangaroo business only","Australian education"));
     dbHelper.insertContent(new ContractContent(4,"Russia","Moscow","The red phone is silent","The red place","Red appartements","The putin mobile","" ,""));
@@ -134,6 +164,17 @@ public class DBHelperTest {
     contract.setID(1);
     dbHelper.deleteUserAccount(contract);
     assertTrue(dbHelper.getAllUsers().size()==0);
+  }
+
+  @Test
+  public void testEraseComment() throws  Exception{
+    dbHelper.insertComment(new ContractComment(2,3,"Nice post"));
+    ContractComment contract = new ContractComment(0,0,"");
+    contract.setID(1);
+    dbHelper.deleteComment(contract);
+    assertTrue(dbHelper.getAllComments().size()==0);
+
+
   }
 
   @Test
@@ -167,6 +208,20 @@ public class DBHelperTest {
     assertTrue(size == 3);
     ContractAccount contractAccount = contractAccounts.get(0);
     assertTrue(contractAccount.getFirstName().compareTo( "Hillary")==0 & contractAccount.getLastName().compareTo("Clinton")==0 );
+  }
+
+  @Test
+  public void testGetAllComments(){
+    dbHelper.insertComment(new ContractComment(4,3,"I was here first"));
+    dbHelper.insertComment(new ContractComment(2,3,"Nice post"));
+    dbHelper.insertComment(new ContractComment(3,3,"Hey thanks"));
+    ArrayList<ContractComment> contracts = dbHelper.getAllComments();
+    int size = contracts.size();
+    assertTrue(size ==3);
+    ContractComment contract = contracts.get(1);
+    assertTrue(contract.getContent().compareTo("Nice post")==0);
+
+
   }
 
   @Test

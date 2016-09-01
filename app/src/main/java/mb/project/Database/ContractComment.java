@@ -8,15 +8,14 @@ import java.util.Date;
 public class ContractComment {
   private int ID ,userId, postId;
   // We will need to sort out the comments in a chronological order.
-  private Date date;
+  // Usually this would require a date variable but we can just use the auto-incremented ID to do the job.
   private String content;
 
   public ContractComment(){};
 
-  public ContractComment(int userId, int postId, Date date, String content){
+  public ContractComment(int userId, int postId, String content){
     this.userId = userId;
     this.postId = postId;
-    this.date = date;
     this.content = content;
   }
 
@@ -30,9 +29,7 @@ public class ContractComment {
   public int getPostId() {
     return postId;
   }
-  public Date getDate() {
-    return date;
-  }
+
   public String getContent() {
     return content;
   }
@@ -47,9 +44,7 @@ public class ContractComment {
   public void setPostId(int postId) {
     this.postId = postId;
   }
-  public void setDate(Date date) {
-    this.date = date;
-  }
+
   public void setContent(String content) {
     this.content = content;
   }
@@ -58,7 +53,7 @@ public class ContractComment {
 
   @Override
   public String toString() {
-    return("Comment: [ID]= "+getID()+" [UserId]= "+getUserId()+" [PostID]= "+getPostId()+" [Date]= "+getDate().toString()+" [Content]= "+getContent());
+    return("Comment: [ID]= "+getID()+" [UserId]= "+getUserId()+" [PostID]= "+getPostId()+" [Content]= "+getContent());
   }
 }
 

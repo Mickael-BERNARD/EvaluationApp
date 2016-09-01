@@ -7,6 +7,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import org.w3c.dom.Comment;
+
 import java.util.ArrayList;
 
 /**
@@ -71,11 +73,12 @@ public class DBHelper extends SQLiteOpenHelper {
     // SQL statement to create the tables
     String SQL_CREATE_ENTRIES_ACCOUNT = "CREATE TABLE " + TableAccounts.TABLE_NAME + " (" + TableAccounts.COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + TableAccounts.COLUMN_FIRST_NAME + TEXT_TYPE  + COMMA_SEP + TableAccounts.COLUMN_LAST_NAME  +TEXT_TYPE + COMMA_SEP + TableAccounts.COLUMN_EMAIL + TEXT_TYPE + COMMA_SEP + TableAccounts.COLUMN_TEL + TEXT_TYPE + " )";
     String SQL_CREATE_ENTRIES_CONTENT = "CREATE TABLE " + TableContent.TABLE_NAME + " (" + TableContent.COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + TableContent.COLUMN_USER_ID + " INTEGER ,"+ TableContent.COLUMN_COUNTRY + TEXT_TYPE  + COMMA_SEP  + TableContent.COLUMN_CITIES + TEXT_TYPE  + COMMA_SEP + TableContent.COLUMN_DESCR +TEXT_TYPE + COMMA_SEP + TableContent.COLUMN_POF + TEXT_TYPE + COMMA_SEP + TableContent.COLUMN_ACCOMMODATIONS + TEXT_TYPE + COMMA_SEP + TableContent.COLUMN_TRANSPORT+ TEXT_TYPE + COMMA_SEP + TableContent.COLUMN_BUSINESS + TEXT_TYPE + COMMA_SEP + TableContent.COLUMN_EDUCATION + TEXT_TYPE +" )";
-
+    String SQL_CREATE_ENTRIES_COMMENT = "CREATE TABLE " + TableComments.TABLE_NAME + " (" + TableComments.COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + TableComments.COLUMN_USER_ID + " INTEGER ," + TableComments.COLUMN_POST_ID + " INTEGER ," + TableComments.COLUMN_CONTENT + TEXT_TYPE + " )";
 
     // Create the tables
     db.execSQL(SQL_CREATE_ENTRIES_ACCOUNT);
     db.execSQL(SQL_CREATE_ENTRIES_CONTENT);
+    db.execSQL(SQL_CREATE_ENTRIES_COMMENT);
   }
 
   //2. INSERTION
@@ -91,6 +94,23 @@ public class DBHelper extends SQLiteOpenHelper {
     contentValues.put(TableAccounts.COLUMN_TEL, contract.getTel());
     // Insert Row (-> this method returns the row of the newly inserted row or -1 if an error occurred)
     long index = database.insert(TableAccounts.TABLE_NAME, null, contentValues);
+    //For safe coding, it is better to close the database once we are done with our operation. -
+    database.close();
+    return index;
+  }
+
+  public long insertComment(ContractComment contract){
+    Log.d("insertComment",contract.toString());
+    // Get reference to a writable DB
+    SQLiteDatabase database = this.getWritableDatabase();
+    // Create ContentValues to associate each column to their value.
+    ContentValues contentValues = new ContentValues();
+    contentValues.put(TableComments.COLUMN_USER_ID, contract.getUserId());
+    contentValues.put(TableComments.COLUMN_POST_ID, contract.getPostId());
+    contentValues.put(TableComments.COLUMN_CONTENT, contract.getContent());
+
+    // Insert Row (-> this method returns the row of the newly inserted row or -1 if an error occurred)
+    long index = database.insert(TableComments.TABLE_NAME, null, contentValues);
     //For safe coding, it is better to close the database once we are done with our operation. -
     database.close();
     return index;
@@ -152,6 +172,23 @@ public class DBHelper extends SQLiteOpenHelper {
     database.close();
   }
 
+  public void updateComment(ContractComment contract){
+    // Get a reference to the writable DB
+    SQLiteDatabase database = this.getReadableDatabase();
+    // Create contentValues
+    ContentValues contentValues = new ContentValues();
+    contentValues.put(TableComments.COLUMN_USER_ID, contract.getUserId());
+    contentValues.put(TableComments.COLUMN_POST_ID, contract.getPostId());
+    contentValues.put(TableComments.COLUMN_CONTENT, contract.getContent());
+
+    // returns the number of rows affected -> those affected are the rows with COLUMN_ID = contract.getID
+    database.update(TableContent.TABLE_NAME, // Table
+      contentValues ,
+      TableContent.COLUMN_ID + " = ? ",
+      new String[]{String.valueOf(contract.getID())});
+    database.close();
+  }
+
   public void updateContent(ContractContent contract){
     // Get a reference to the writable DB
     SQLiteDatabase database = this.getReadableDatabase();
@@ -181,6 +218,11 @@ public class DBHelper extends SQLiteOpenHelper {
   }
 
 
+  /**
+   * Delete a user account based on the value of it's ID.
+   * @param contract
+   * @return
+   */
   // DELETE RECORDS
 // Uses the ID to delete!
   public long deleteUserAccount( ContractAccount contract){
@@ -193,6 +235,11 @@ public class DBHelper extends SQLiteOpenHelper {
     return value;
   }
 
+  /**
+   * Delete a user post based on the value of it's ID.
+   * @param contract
+   * @return
+   */
   public long deleteUserContent( ContractContent contract){
     // Get reference to writable DB
     SQLiteDatabase database = this.getReadableDatabase();
@@ -203,7 +250,23 @@ public class DBHelper extends SQLiteOpenHelper {
     return value;
   }
 
+  /**
+   * Delete a comment based on the value of it's ID.
+   * @param contract
+   * @return
+     */
+  public long deleteComment(ContractComment contract){
+    // Get reference to writable DB
+    SQLiteDatabase database = this.getReadableDatabase();
+    // Delete: Returns the number of rows affected.
+    long value = database.delete(TableComments.TABLE_NAME, TableComments.COLUMN_ID + " = ?", new String[]{String.valueOf(contract.getID())});
+    database.close();
+    Log.d("deleteComment", contract.toString());
+    return value;
 
+  }
+
+  // For debug purposes
   public void eraseAllUsers(){
     // Get reference to writable DB
     SQLiteDatabase database = this.getReadableDatabase();
@@ -218,6 +281,12 @@ public class DBHelper extends SQLiteOpenHelper {
     database.close();
   }
 
+  public void eraseAllComments(){
+    // Get reference to writable DB
+    SQLiteDatabase database = this.getReadableDatabase();
+    database.execSQL("delete from "+ TableComments.TABLE_NAME);
+    database.close();
+  }
 
   // SELECTING RECORDS
 
@@ -308,6 +377,54 @@ public ContractContent getContentByRow(int id){
   }
 
 
+  public ContractComment getCommentByPostIdAndUserId(int postId,int userId ){
+    // Get a reference to the readable DB
+    SQLiteDatabase db = this.getReadableDatabase();
+    // Build query
+    Cursor cursor = db.query(TableComments.TABLE_NAME, // table
+      TableComments.COLUMNS, // column names
+      ""+TableComments.COLUMN_POST_ID+"=?" +" AND "+ TableComments.COLUMN_USER_ID+" =? ", // selections
+      new String[]{String.valueOf(postId),String.valueOf(userId)}, // selection args
+      null, // group by
+      null, // having
+      null, // order by
+      null);  // limit
+
+    // If results are found:
+    if (cursor != null) {
+      cursor.moveToFirst();}
+    // Build a Contract object
+    ContractComment model = new ContractComment();
+    model.setID(Integer.parseInt(cursor.getString(0)));
+    model.setUserId(Integer.parseInt(cursor.getString(1)));
+    model.setPostId(Integer.parseInt(cursor.getString(2)));
+    model.setContent(cursor.getString(3));
+
+    // Log
+    Log.d("getCommentByPostIdUserI", model.toString());
+    return model;
+
+  }
+
+  public Cursor getCommentByPostIdUserIdAlt(int postId, int userId){
+    // Get a reference to the readable DB
+    SQLiteDatabase db = this.getReadableDatabase();
+    // Build query
+    Cursor cursor = db.query(TableComments.TABLE_NAME, // table
+      TableComments.COLUMNS, // column names
+      ""+TableComments.COLUMN_POST_ID+"=?" +" AND "+ TableComments.COLUMN_USER_ID+" =? ", // selections
+      new String[]{String.valueOf(postId),String.valueOf(userId)}, // selection args
+      null, // group by
+      null, // having
+      null, // order by
+      null);  // limit
+
+    // If results are found:
+    if (cursor != null) {
+      cursor.moveToFirst();}
+    return cursor;
+  }
+
 
   public Cursor getContentByUserAlt(int id){
     // Get a reference to the readable DB
@@ -360,6 +477,33 @@ public ContractContent getContentByRow(int id){
     database.close();
     Log.d("getAllUsers()",contracts.toString());
     return contracts; // The arrayList
+  }
+
+  public ArrayList<ContractComment> getAllComments(){
+    ArrayList<ContractComment> contracts = new ArrayList<>();
+    SQLiteDatabase database = this.getReadableDatabase();
+    // We are quering the database and fetching the data in the cursor.
+    Cursor cursor = database.query(TableComments.TABLE_NAME, null,null,null,null,null,null,null);
+    ContractComment model;
+    // We check if we have any values in the Cursor.
+    if (cursor.getCount() >0){
+      for (int i = 0; i < cursor.getCount(); i++){
+        // The initial position of the cursor is at -1.
+        // For a loop we use the moveToNext method instead of the moveToFirst method.
+        cursor.moveToNext();
+        model = new ContractComment();
+        // retrieve values in each column
+        model.setID(Integer.parseInt(cursor.getString(0)));
+        model.setUserId(Integer.parseInt(cursor.getString(1)));
+        model.setPostId(Integer.parseInt(cursor.getString(2)));
+        model.setContent(cursor.getString(3));
+        contracts.add(model);
+      }
+    }
+    cursor.close();
+    database.close();
+    Log.d("getAllCommentst",contracts.toString());
+    return contracts; // the arrayList
   }
 
   public ArrayList<ContractContent> getAllUserContent(){
@@ -442,8 +586,5 @@ public ContractContent getContentByRow(int id){
     database.close();
     return contractsArray;
   }
-
-
-
 
 }
