@@ -62,8 +62,13 @@ public class PostEdit extends AppCompatActivity {
     String s_country = country.getText().toString();
     String s_city = cities.getText().toString();
     String s_desc = description.getText().toString();
+    String s_pof = "";
+    String s_accomodations = "";
+    String s_transport = "";
+    String s_business = "";
+    String s_education = "";
 
-    ContractContent contract = new ContractContent(userId,s_country,s_city,s_desc);
+    ContractContent contract = new ContractContent(userId,s_country,s_city,s_desc,s_pof, s_accomodations , s_transport , s_business , s_education);
     Log.d("handleOnClickValider"," "+contract.toString());
     contract.setID(position);
     dbHelper.updateContent(contract);

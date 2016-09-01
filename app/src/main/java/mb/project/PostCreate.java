@@ -54,6 +54,11 @@ public class PostCreate extends AppCompatActivity {
     String s_country = country.getText().toString();
     String s_cities = cities.getText().toString();
     String s_desc = description.getText().toString();
+    String s_pof = "";
+    String s_accomodations = "";
+    String s_transport = "";
+    String s_business = "";
+    String s_education = "";
 
     Log.d("submitPost","button clicked"+(s_country.isEmpty() | s_cities.isEmpty() | s_desc.isEmpty()));
     // Check if the form is valid:
@@ -74,7 +79,7 @@ public class PostCreate extends AppCompatActivity {
       // Insert row in the database:
       Log.d("PostCreate","Value for user:"+userId);
 
-      ContractContent contract = new ContractContent(userId,s_country,s_cities,s_desc);
+      ContractContent contract = new ContractContent(userId,s_country,s_cities,s_desc, s_pof, s_accomodations , s_transport , s_business , s_education);
       Log.d("PostCreate","Content:"+contract.toString());
       database.insertContent(contract);
       // End the session -> restart the previous activity

@@ -70,7 +70,7 @@ public class DBHelper extends SQLiteOpenHelper {
   public void onCreate(SQLiteDatabase db){
     // SQL statement to create the tables
     String SQL_CREATE_ENTRIES_ACCOUNT = "CREATE TABLE " + TableAccounts.TABLE_NAME + " (" + TableAccounts.COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + TableAccounts.COLUMN_FIRST_NAME + TEXT_TYPE  + COMMA_SEP + TableAccounts.COLUMN_LAST_NAME  +TEXT_TYPE + COMMA_SEP + TableAccounts.COLUMN_EMAIL + TEXT_TYPE + COMMA_SEP + TableAccounts.COLUMN_TEL + TEXT_TYPE + " )";
-    String SQL_CREATE_ENTRIES_CONTENT = "CREATE TABLE " + TableContent.TABLE_NAME + " (" + TableContent.COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + TableContent.COLUMN_USER_ID + " INTEGER ,"+ TableContent.COLUMN_COUNTRY + TEXT_TYPE  + COMMA_SEP  + TableContent.COLUMN_CITIES + TEXT_TYPE  + COMMA_SEP + TableContent.COLUMN_DESCR +TEXT_TYPE + " )";
+    String SQL_CREATE_ENTRIES_CONTENT = "CREATE TABLE " + TableContent.TABLE_NAME + " (" + TableContent.COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + TableContent.COLUMN_USER_ID + " INTEGER ,"+ TableContent.COLUMN_COUNTRY + TEXT_TYPE  + COMMA_SEP  + TableContent.COLUMN_CITIES + TEXT_TYPE  + COMMA_SEP + TableContent.COLUMN_DESCR +TEXT_TYPE + COMMA_SEP + TableContent.COLUMN_POF + TEXT_TYPE + COMMA_SEP + TableContent.COLUMN_ACCOMMODATIONS + TEXT_TYPE + COMMA_SEP + TableContent.COLUMN_TRANSPORT+ TEXT_TYPE + COMMA_SEP + TableContent.COLUMN_BUSINESS + TEXT_TYPE + COMMA_SEP + TableContent.COLUMN_EDUCATION + TEXT_TYPE +" )";
 
 
     // Create the tables
@@ -106,6 +106,13 @@ public class DBHelper extends SQLiteOpenHelper {
     contentValues.put(TableContent.COLUMN_COUNTRY, contract.getCountry());
     contentValues.put(TableContent.COLUMN_CITIES, contract.getCities());
     contentValues.put(TableContent.COLUMN_DESCR, contract.getDescription());
+    contentValues.put(TableContent.COLUMN_POF, contract.getPlacesOfInterest());
+    contentValues.put(TableContent.COLUMN_ACCOMMODATIONS, contract.getAccommodations());
+    contentValues.put(TableContent.COLUMN_TRANSPORT, contract.getTransport());
+    contentValues.put(TableContent.COLUMN_BUSINESS, contract.getBusiness());
+    contentValues.put(TableContent.COLUMN_EDUCATION, contract.getEducation());
+
+
     // Insert Row (-> this method returns the row of the newly inserted row or -1 if an error occurred)
     long index = database.insert(TableContent.TABLE_NAME, null, contentValues);
     //For safe coding, it is better to close the database once we are done with our operation. -
@@ -154,6 +161,11 @@ public class DBHelper extends SQLiteOpenHelper {
     contentValues.put(TableContent.COLUMN_COUNTRY, contract.getCountry());
     contentValues.put(TableContent.COLUMN_CITIES, contract.getCities());
     contentValues.put(TableContent.COLUMN_DESCR, contract.getDescription());
+    contentValues.put(TableContent.COLUMN_POF, contract.getPlacesOfInterest());
+    contentValues.put(TableContent.COLUMN_ACCOMMODATIONS, contract.getAccommodations());
+    contentValues.put(TableContent.COLUMN_TRANSPORT, contract.getTransport());
+    contentValues.put(TableContent.COLUMN_BUSINESS, contract.getBusiness());
+    contentValues.put(TableContent.COLUMN_EDUCATION, contract.getEducation());
 
     // returns the number of rows affected -> those affected are the rows with COLUMN_ID = contract.getID
     database.update(TableContent.TABLE_NAME, // Table
@@ -266,6 +278,11 @@ public ContractContent getContentByRow(int id){
   content.setCountry(cursor.getString(2));
   content.setCity(cursor.getString(3));
   content.setDescription(cursor.getString(4));
+  content.setPlacesOfInterest(cursor.getString(5));
+  content.setAccommodations(cursor.getString(6));
+  content.setTransport(cursor.getString(7));
+  content.setBusiness(cursor.getString(8));
+  content.setEducation(cursor.getString(9));
   // Log
   Log.d("getContentByRow(" + id + ")", content.toString());
   return content;
@@ -365,6 +382,11 @@ public ContractContent getContentByRow(int id){
         model.setCountry(cursor.getString(2));
         model.setCity(cursor.getString(3));
         model.setDescription(cursor.getString(4));
+        model.setPlacesOfInterest(cursor.getString(5));
+        model.setAccommodations(cursor.getString(6));
+        model.setTransport(cursor.getString(7));
+        model.setBusiness(cursor.getString(8));
+        model.setEducation(cursor.getString(9));
         contracts.add(model);
       }
     }

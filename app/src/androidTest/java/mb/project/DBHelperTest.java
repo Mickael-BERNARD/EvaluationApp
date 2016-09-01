@@ -64,9 +64,9 @@ public class DBHelperTest {
   }
   @Test
   public void testInsertContent() throws Exception{
-    long value1 =  dbHelper.insertContent(new ContractContent(5,"Australia","Sydney","What a lovely day"));
+    long value1 =  dbHelper.insertContent(new ContractContent(5,"Australia","Sydney","What a lovely day", "Things to see","PLaces to stay at","MOving around","Kangaroo business only","Australian education"));
    assertTrue(value1 == 1);
-    long value2 =  dbHelper.insertContent(new ContractContent(4,"Russia","Moscow","The red phone is silent"));
+    long value2 =  dbHelper.insertContent(new ContractContent(4,"Russia","Moscow","The red phone is silent","The red place","Red appartements","The putin mobile","" ,""));
     assertTrue(value2 == 2);
     // Verifying that the database data is properly stored in the container class:
     ContractContent  contractContent = dbHelper.getContentByRow((int) value1);
@@ -108,9 +108,9 @@ public class DBHelperTest {
 
   @Test
   public void testEraseAllUserContent() throws Exception{
-    dbHelper.insertContent(new ContractContent(5,"Australia","Sydney","What a lovely day"));
-    dbHelper.insertContent(new ContractContent(5,"Russia","Moscow","The red phone is silent"));
-    dbHelper.insertContent(new ContractContent(1,"North Korea","Pyongyang","Great leader is best leader"));
+    dbHelper.insertContent(new ContractContent(5,"Australia","Sydney","What a lovely day", "Things to see","PLaces to stay at","MOving around","Kangaroo business only","Australian education"));
+    dbHelper.insertContent(new ContractContent(4,"Russia","Moscow","The red phone is silent","The red place","Red appartements","The putin mobile","" ,""));
+    dbHelper.insertContent(new ContractContent(1,"North Korea","Pyongyang","Great leader is best leader","best things to see", "best houses", "best transport", "best business","best education"));
 
     // Removing all the content
     dbHelper.eraseAllUserContent();
@@ -139,8 +139,9 @@ public class DBHelperTest {
   @Test
   public void testEraseUserContent() throws Exception{
     Log.d("EraseUserCOntent",""+dbHelper.getAllUserContent().size());
-    dbHelper.insertContent(new ContractContent(5,"Australia","Sydney","What a lovely day"));
-    ContractContent contract = new ContractContent(5,"Russia","Moscow","The red phone is silent");
+    dbHelper.insertContent(new ContractContent(5,"Australia","Sydney","What a lovely day", "Things to see","PLaces to stay at","MOving around","Kangaroo business only","Australian education"));
+
+    ContractContent contract = new ContractContent(5,"Russia","Moscow","The red phone is silent","The red place","Red appartements","The putin mobile","" ,"");
     Log.d("EraseUserCOntent",""+dbHelper.getAllUserContent().size());
     contract.setID(1);
     dbHelper.deleteUserContent(contract);
@@ -170,18 +171,21 @@ public class DBHelperTest {
 
   @Test
   public void testGetAllUserContent(){
-    dbHelper.insertContent(new ContractContent(5,"Australia","Sydney","What a lovely day"));
-    dbHelper.insertContent(new ContractContent(2,"Russia","Moscow","The red phone is silent"));
-    dbHelper.insertContent(new ContractContent(1,"North Korea","Pyongyang","Great leader is best leader"));
+    dbHelper.insertContent(new ContractContent(5,"Australia","Sydney","What a lovely day", "Things to see","PLaces to stay at","MOving around","Kangaroo business only","Australian education"));
+    dbHelper.insertContent(new ContractContent(4,"Russia","Moscow","The red phone is silent","The red place","Red appartements","The putin mobile","" ,""));
+    dbHelper.insertContent(new ContractContent(1,"North Korea","Pyongyang","Great leader is best leader","best things to see", "best houses", "best transport", "best business","best education"));
     ArrayList<ContractContent> contractContents = dbHelper.getAllUserContent();
     int size = contractContents.size();
     //==
     assertTrue(size ==3);
     ContractContent contract = contractContents.get(1);
-    assertTrue(contract.getUserId()==2);
+    assertTrue(contract.getUserId()==4);
     assertTrue(contract.getCountry().compareTo("Russia")==0);
     assertTrue(contract.getCities().compareTo("Moscow")==0);
     assertTrue(contract.getDescription().compareTo("The red phone is silent")==0);
+    assertTrue(contract.getPlacesOfInterest().compareTo("The red place")==0);
+    assertTrue(contract.getAccommodations().compareTo("Red appartements")==0);
+    assertTrue(contract.getTransport().compareTo("The putin mobile")==0);
 
   }
 
@@ -200,13 +204,13 @@ public class DBHelperTest {
 
   @Test
   public void testGetUserContentByRow(){
-    dbHelper.insertContent(new ContractContent(5,"Australia","Sydney","What a lovely day"));
-    dbHelper.insertContent(new ContractContent(2,"Russia","Moscow","The red phone is silent"));
-    dbHelper.insertContent(new ContractContent(1,"North Korea","Pyongyang","Great leader is best leader"));
+    dbHelper.insertContent(new ContractContent(5,"Australia","Sydney","What a lovely day", "Things to see","PLaces to stay at","MOving around","Kangaroo business only","Australian education"));
+    dbHelper.insertContent(new ContractContent(4,"Russia","Moscow","The red phone is silent","The red place","Red appartements","The putin mobile","" ,""));
+    dbHelper.insertContent(new ContractContent(1,"North Korea","Pyongyang","Great leader is best leader","best things to see", "best houses", "best transport", "best business","best education"));
 
     ContractContent contract = dbHelper.getContentByRow(2);
     //==
-    assertTrue(contract.getUserId()==2);
+    assertTrue(contract.getUserId()==4);
     assertTrue(contract.getCountry().compareTo("Russia")==0);
     assertTrue(contract.getCities().compareTo("Moscow")==0);
     assertTrue(contract.getDescription().compareTo("The red phone is silent")==0);
@@ -214,9 +218,9 @@ public class DBHelperTest {
 
   @Test
   public void testGetContentByRowAlt(){
-    dbHelper.insertContent(new ContractContent(5,"Australia","Sydney","What a lovely day"));
-    dbHelper.insertContent(new ContractContent(2,"Russia","Moscow","The red phone is silent"));
-    dbHelper.insertContent(new ContractContent(1,"North Korea","Pyongyang","Great leader is best leader"));
+    dbHelper.insertContent(new ContractContent(5,"Australia","Sydney","What a lovely day", "Things to see","PLaces to stay at","MOving around","Kangaroo business only","Australian education"));
+    dbHelper.insertContent(new ContractContent(4,"Russia","Moscow","The red phone is silent","The red place","Red appartements","The putin mobile","" ,""));
+    dbHelper.insertContent(new ContractContent(1,"North Korea","Pyongyang","Great leader is best leader","best things to see", "best houses", "best transport", "best business","best education"));
 
     Cursor cursor = dbHelper.getContentByRowAlt(1);
     assertTrue( cursor.getInt(cursor.getColumnIndexOrThrow(TableContent.COLUMN_USER_ID))== 5);
@@ -224,9 +228,10 @@ public class DBHelperTest {
 
   @Test
   public void testGetContentByUser(){
-    dbHelper.insertContent(new ContractContent(5,"Australia","Sydney","What a lovely day"));
-    dbHelper.insertContent(new ContractContent(2,"Russia","Moscow","The red phone is silent"));
-    dbHelper.insertContent(new ContractContent(2,"North Korea","Pyongyang","Great leader is best leader"));
+    dbHelper.insertContent(new ContractContent(5,"Australia","Sydney","What a lovely day", "Things to see","PLaces to stay at","MOving around","Kangaroo business only","Australian education"));
+    dbHelper.insertContent(new ContractContent(2,"Russia","Moscow","The red phone is silent","The red place","Red appartements","The putin mobile","" ,""));
+    dbHelper.insertContent(new ContractContent(2,"North Korea","Pyongyang","Great leader is best leader","best things to see", "best houses", "best transport", "best business","best education"));
+
 
     Cursor cursor = dbHelper.getContentByUserAlt(2);
     assertTrue(cursor.getInt(cursor.getColumnIndexOrThrow(TableContent.COLUMN_USER_ID))== 2);
@@ -261,9 +266,12 @@ public class DBHelperTest {
   @Test
   public void testUpdateUserContent() throws Exception{
     // We insert content
-    dbHelper.insertContent(new ContractContent(5,"Australia","Sydney","What a lovely day"));
-    // We create a new user content class object and set it's id to 1.
-    ContractContent contract = new ContractContent(2,"Russia","Moscow","The red phone is silent");
+
+    dbHelper.insertContent(new ContractContent(5,"Australia","Sydney","What a lovely day", "Things to see","PLaces to stay at","MOving around","Kangaroo business only","Australian education"));
+
+    ContractContent contract = new ContractContent(2,"Russia","Moscow","The red phone is silent","The red place","Red appartements","The putin mobile","" ,"");
+
+
     contract.setID(1);
     // Update content row in database.
     dbHelper.updateContent(contract);
@@ -296,9 +304,10 @@ public class DBHelperTest {
   @Test
   public void testGetAllUSerContentAlt() throws Exception{
     // We add 3 content class objects
-    dbHelper.insertContent(new ContractContent(5,"Australia","Sydney","What a lovely day"));
-    dbHelper.insertContent(new ContractContent(2,"Russia","Moscow","The red phone is silent"));
-    dbHelper.insertContent(new ContractContent(1,"North Korea","Pyongyang","Great leader is best leader"));
+    dbHelper.insertContent(new ContractContent(5,"Australia","Sydney","What a lovely day", "Things to see","PLaces to stay at","MOving around","Kangaroo business only","Australian education"));
+    dbHelper.insertContent(new ContractContent(4,"Russia","Moscow","The red phone is silent","The red place","Red appartements","The putin mobile","" ,""));
+    dbHelper.insertContent(new ContractContent(1,"North Korea","Pyongyang","Great leader is best leader","best things to see", "best houses", "best transport", "best business","best education"));
+
     // We recover the cursor
     Cursor cursor = dbHelper.getAllContentAlt();
     // move to the first element

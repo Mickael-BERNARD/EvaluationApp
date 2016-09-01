@@ -5,17 +5,22 @@ package mb.project.Database;
  */
 public class ContractContent {
   private int userId, ID;
-  private String country, city, description;
+  private String country, city, description, placesOfInterest , accommodations,transport , business , education;
 
 
 
   public ContractContent(){}
 
-  public ContractContent(int userId, String country, String city, String description){
+  public ContractContent(int userId, String country, String city, String description, String placesOfInterest , String accommodations , String transport, String business , String education){
     this.userId = userId;
     this.country = country;
     this.city = city;
     this.description = description;
+    this.placesOfInterest = placesOfInterest;
+    this.accommodations = accommodations;
+    this.transport = transport;
+    this.business = business;
+    this.education = education;
   }
 
   public int getID (){
@@ -30,7 +35,6 @@ public class ContractContent {
     return country;
   }
 
-
   public String getCities() {
     return city;
   }
@@ -38,6 +42,27 @@ public class ContractContent {
   public String getDescription() {
     return description;
   }
+
+  public String getPlacesOfInterest() {
+    return placesOfInterest;
+  }
+
+  public String getAccommodations() {
+    return accommodations;
+  }
+
+  public String getTransport() {
+    return transport;
+  }
+
+  public String getBusiness() {
+    return business;
+  }
+
+  public String getEducation() {
+    return education;
+  }
+
 
   public void setID(int ID) {
     this.ID = ID;
@@ -59,8 +84,30 @@ public class ContractContent {
     this.description = description;
   }
 
+  public void setPlacesOfInterest(String placesOfInterest) {
+    this.placesOfInterest = placesOfInterest;
+  }
+
+  public void setAccommodations(String accommodations) {
+    this.accommodations = accommodations;
+  }
+
+  public void setTransport(String transport) {
+    this.transport = transport;
+  }
+
+  public void setBusiness(String business) {
+    this.business = business;
+  }
+
+  public void setEducation(String education) {
+    this.education = education;
+  }
+
+
+
   @Override
   public String toString() {
-    return("User: [ID]= "+getID()+" [UserId]= "+getUserId()+" [Country]= "+getCountry()+" [City]= "+getCities()+" [Description]= "+getDescription());
+    return("User: [ID]= "+getID()+" [UserId]= "+getUserId()+" [Country]= "+getCountry()+" [City]= "+getCities()+" [Description]= "+getDescription() + " [PlacesOfInterest]= "+getPlacesOfInterest() +" [Accommodations]= "+ getAccommodations()+" [Transport] "+getTransport()+" [Business]= "+getBusiness()+" [Education]= "+getEducation());
   }
 }
