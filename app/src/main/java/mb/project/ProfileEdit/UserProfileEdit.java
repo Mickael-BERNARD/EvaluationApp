@@ -7,6 +7,8 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -18,6 +20,7 @@ import mb.project.PostCreate;
 import mb.project.PostEdit;
 import mb.project.R;
 import mb.project.SessionManager;
+import mb.project.UserListView;
 
 public class UserProfileEdit extends AppCompatActivity {
 
@@ -213,6 +216,43 @@ public class UserProfileEdit extends AppCompatActivity {
     contractContent.setID(position);
     database.deleteUserContent(contractContent);
     refreshPostList();
+  }
+
+
+  @Override
+  public boolean onCreateOptionsMenu(Menu menu) {
+    // Inflate the menu; this adds items to the action bar if it is present.
+    getMenuInflater().inflate(R.menu.menu_user_profile_edit, menu);
+
+    return true;
+  }
+
+  @Override
+  public boolean onOptionsItemSelected(MenuItem item) {
+    // Handle action bar item clicks here. The action bar will
+    // automatically handle clicks on the Home/Up button, so long
+    // as you specify a parent activity in AndroidManifest.xml.
+    int id = item.getItemId();
+
+    //noinspection SimplifiableIfStatement
+    switch (id){
+      case R.id.action_user_list:
+        Log.d("Appbar","Selected User list");
+        // Go to the user list.
+        Intent intent = new Intent(this, UserListView.class);
+        startActivity(intent);
+        break;
+
+      case R.id.action_settings:
+        Log.d("Appbar","Selected Settings");
+        break;
+
+      default:
+        Log.d("Appbar","Another option was selected");
+        break;
+    }
+
+    return super.onOptionsItemSelected(item);
   }
 
 

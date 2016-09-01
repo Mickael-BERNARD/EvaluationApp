@@ -1,6 +1,7 @@
 <resources>
   <string name="app_name">Project</string>
   <string name="action_settings">Settings</string>
+  <string name="action_user_list">Posts</string>
   <string name="hello_world">Enter a message</string>
   <string name="button_send">Send</string>
 </resources>
