@@ -141,4 +141,8 @@ public class MainActivity extends AppCompatActivity {
     showUserIdRefresh();
 
   }
+
+  @Override
+  public void onBackPressed() {
+  }
 }
