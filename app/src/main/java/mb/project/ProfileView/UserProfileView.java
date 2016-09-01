@@ -49,12 +49,14 @@ public class UserProfileView extends AppCompatActivity {
     email = (TextView) findViewById(R.id.uprv_email);
     telephone = (TextView) findViewById(R.id.uprv_tel);
 
+
     firstName.setText(account.getFirstName());
     lastName.setText(account.getLastName());
     email.setText(account.getEmail());
     telephone.setText(account.getTel());
     displayPostList();
   }
+
 
   public void displayPostList(){
     database = new DBHelper(this);
@@ -116,5 +118,5 @@ public class UserProfileView extends AppCompatActivity {
 
     return super.onOptionsItemSelected(item);
   }
-  
+
 }

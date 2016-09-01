@@ -10,8 +10,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
 import mb.project.Database.ContractAccount;
 import mb.project.Database.ContractContent;
 import mb.project.Database.DBHelper;
@@ -60,16 +58,38 @@ public class UserPostView extends AppCompatActivity {
     country.setText(contract.getCountry());
     cities.setText(contract.getCities());
     description.setText(contract.getDescription());
+
+    manageTextViewContent(placesOfInterest, contract.getPlacesOfInterest(), (TextView) findViewById(R.id.upv_tv_poi));
+    manageTextViewContent(accomodations,contract.getAccommodations(), (TextView) findViewById(R.id.upv_tv_accommodations));
+    manageTextViewContent(transport,contract.getTransport(), (TextView) findViewById(R.id.upv_tv_transport));
+    manageTextViewContent(business,contract.getBusiness(), (TextView) findViewById(R.id.upv_tv_business));
+    manageTextViewContent(education,contract.getEducation(), (TextView) findViewById(R.id.upv_tv_education));
+
+    /*
     placesOfInterest.setText(contract.getPlacesOfInterest());
     accomodations.setText(contract.getAccommodations());
     transport.setText(contract.getTransport());
     business.setText(contract.getBusiness());
-    education.setText(contract.getEducation());
+    education.setText(contract.getEducation());*/
 
     userName.setPaintFlags(userName.getPaintFlags() |   Paint.UNDERLINE_TEXT_FLAG);
     userName.setText(firstName+" "+lastName);
 
 
+  }
+
+  /**
+   * This method will remove a textview if it doesn't have any content to display.
+   * @param
+   * @param container
+   * @param content
+     */
+  public void manageTextViewContent(TextView container, String content, TextView segmentTitle){
+    if( content.isEmpty()){
+      container.setVisibility(View.GONE);
+      segmentTitle.setVisibility(View.GONE);
+    }
+    else container.setText(content);
   }
 
   public void handleOnClickName(View view){
