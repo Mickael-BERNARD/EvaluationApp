@@ -1,6 +1,8 @@
 package mb.project;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -84,14 +86,28 @@ public class PostEdit extends AppCompatActivity {
     String s_business = business.getText().toString();
     String s_education = education.getText().toString();
 
-    ContractContent contract = new ContractContent(userId,s_country,s_city,s_desc,s_pof, s_accomodations , s_transport , s_business , s_education);
-    Log.d("handleOnClickValider"," "+contract.toString());
-    contract.setID(position);
-    dbHelper.updateContent(contract);
-    dbHelper.close();
-    Intent intent = new Intent(this, UserProfileEdit.class);
-    intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT); // To resume Main Activity
-    startActivity(intent);
+    if (s_country.isEmpty() | s_city.isEmpty() | s_desc.isEmpty()){
+      // Create a pop up
+      AlertDialog.Builder builder = new AlertDialog.Builder(this);
+      builder.setMessage("Erreur: veuillez remplir au moins les 3 premiers champs indiqués");
+      builder.setNegativeButton("OK", new DialogInterface.OnClickListener() {
+        @Override
+        public void onClick(DialogInterface dialogInterface, int i) {
+          dialogInterface.cancel();
+        }
+      });
+      builder.show();
+    }
+    else{
+      ContractContent contract = new ContractContent(userId,s_country,s_city,s_desc,s_pof, s_accomodations , s_transport , s_business , s_education);
+      Log.d("handleOnClickValider"," "+contract.toString());
+      contract.setID(position);
+      dbHelper.updateContent(contract);
+      dbHelper.close();
+      Intent intent = new Intent(this, UserProfileEdit.class);
+      intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT); // To resume Main Activity
+      startActivity(intent);
+    }
 
   }
 
