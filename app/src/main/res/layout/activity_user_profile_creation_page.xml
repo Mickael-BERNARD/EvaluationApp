@@ -18,13 +18,33 @@
    -->
 
 
+  <TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="Création d&apos;un nouveau profil"
+    android:id="@+id/textView21"
+    android:layout_alignParentStart="true"
+    android:textStyle="bold"
+    android:textSize="25dp" />
+
+  <TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="Bienvenue sur cette application. Il semblerait qu&apos;il n&apos;y ait pas de profil associé à cet appareil. Le formulaire suivant vous permettera de créer un nouveau profil sur cet appareil."
+    android:id="@+id/textView22"
+    android:layout_alignParentTop="false"
+    android:layout_alignStart="@+id/p_first_name"
+    android:layout_below="@+id/textView21"
+    android:layout_margin="10dp"
+    android:textSize="20dp" />
 
   <EditText
     android:layout_marginLeft="10dp"
     android:id="@+id/p_first_name"
     android:hint="Surnom"
     android:layout_width="match_parent"
-    android:layout_height="45dp" />
+    android:layout_height="45dp"
+    android:layout_below="@+id/textView22" />
   <EditText
     android:layout_marginLeft="10dp"
     android:layout_below="@+id/p_first_name"
@@ -71,9 +91,6 @@
     android:layout_alignParentRight="true"
     android:layout_below="@+id/p_telNum"
     />
-
-
-
 
 
 </RelativeLayout>

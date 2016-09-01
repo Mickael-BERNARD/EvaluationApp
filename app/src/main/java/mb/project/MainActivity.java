@@ -19,7 +19,6 @@ import mb.project.ProfileEdit.UserProfileEdit;
 public class MainActivity extends AppCompatActivity {
 
   // We need to change this value in order to change the registration status of the user.
-  public boolean userNotRegistered = true;
   SessionManager session;
 
 
@@ -58,8 +57,12 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
       }*/
       //==============================
+    // Check user status
+    handleUserStatus();
 
     }
+
+
 
   public void goToProfileCreationPage(View view){
     Intent intent = new Intent(this, UserProfileCreationPage.class);
@@ -134,13 +137,34 @@ public class MainActivity extends AppCompatActivity {
     userIdText.setText(""+ session.getUserId());
   }
 
+  /**
+   * This method starts a new activity when called in relation to the user status (registed/not registered)
+   * Disable this activity (by putting it in comments) to show the debug page
+   */
+  public void handleUserStatus(){
+    // The user is NOT registered -> go to the registration page AKA UserProfileCreationPage
+    if (session.getUserId() == -1){
+      Intent intent = new Intent(this, UserProfileCreationPage.class);
+      startActivity(intent);
+    }
+    // The user is already Registered -> send him to the UserProfileEdit Activity
+    else {
+      Intent intent = new Intent(this, UserProfileEdit.class);
+      startActivity(intent);
+    }
+  }
+
   @Override
   public void onResume(){
     super.onResume();
     Log.d("MainActivity","onResume was called");
     showUserIdRefresh();
+    handleUserStatus();
+
+    // Check to see if user is connected
 
   }
+
 
   @Override
   public void onBackPressed() {
