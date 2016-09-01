@@ -22,6 +22,12 @@ public class PostEdit extends AppCompatActivity {
   EditText country;
   EditText cities;
   EditText description;
+  EditText places_of_interest;
+  EditText accommodations;
+  EditText transport;
+  EditText business;
+  EditText education;
+
 
 
   @Override
@@ -42,11 +48,21 @@ public class PostEdit extends AppCompatActivity {
     country = (EditText) findViewById(R.id.pe_country);
     cities = (EditText) findViewById(R.id.pe_cities);
     description = (EditText) findViewById(R.id.pe_description);
+    places_of_interest = (EditText) findViewById(R.id.pe_poi);
+    accommodations = (EditText) findViewById(R.id.pe_accomodations);
+    transport = (EditText) findViewById(R.id.pe_transport);
+    business = (EditText) findViewById(R.id.pe_business);
+    education = (EditText) findViewById(R.id.pe_education);
 
     userId = contract.getUserId();
     country.setText(contract.getCountry());
     cities.setText(contract.getCities());
     description.setText(contract.getDescription());
+    places_of_interest.setText(contract.getPlacesOfInterest());
+    accommodations.setText(contract.getAccommodations());
+    transport.setText(contract.getTransport());
+    business.setText(contract.getBusiness());
+    education.setText(contract.getEducation());
     dbHelper.close();
   }
 
@@ -62,11 +78,11 @@ public class PostEdit extends AppCompatActivity {
     String s_country = country.getText().toString();
     String s_city = cities.getText().toString();
     String s_desc = description.getText().toString();
-    String s_pof = "";
-    String s_accomodations = "";
-    String s_transport = "";
-    String s_business = "";
-    String s_education = "";
+    String s_pof = places_of_interest.getText().toString();
+    String s_accomodations = accommodations.getText().toString();
+    String s_transport = transport.getText().toString();
+    String s_business = business.getText().toString();
+    String s_education = education.getText().toString();
 
     ContractContent contract = new ContractContent(userId,s_country,s_city,s_desc,s_pof, s_accomodations , s_transport , s_business , s_education);
     Log.d("handleOnClickValider"," "+contract.toString());

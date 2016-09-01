@@ -4,13 +4,18 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import mb.project.Database.ContractAccount;
 import mb.project.Database.DBHelper;
+import mb.project.ProfileEdit.UserProfileEdit;
 import mb.project.R;
+import mb.project.UserListView;
 import mb.project.UserPostView;
 
 public class UserProfileView extends AppCompatActivity {
@@ -67,4 +72,49 @@ public class UserProfileView extends AppCompatActivity {
     intent.putExtra("position",position);
     startActivity(intent);
   }
+
+
+  @Override
+  public boolean onCreateOptionsMenu(Menu menu) {
+    // Inflate the menu; this adds items to the action bar if it is present.
+    getMenuInflater().inflate(R.menu.menu_return_to_profile_edit_or_posts, menu);
+
+    return true;
+  }
+
+  @Override
+  public boolean onOptionsItemSelected(MenuItem item) {
+    // Handle action bar item clicks here. The action bar will
+    // automatically handle clicks on the Home/Up button, so long
+    // as you specify a parent activity in AndroidManifest.xml.
+    int id = item.getItemId();
+
+    //noinspection SimplifiableIfStatement
+    Intent intent;
+    switch (id){
+      case R.id.action_user_profile_edit:
+        Log.d("Appbar","Selected User list");
+        // Go to the user list.
+        intent = new Intent(this, UserProfileEdit.class);
+        startActivity(intent);
+        break;
+      case R.id.action_user_list:
+        Log.d("Appbar","Selected User list");
+        // Go to the user list.
+        intent = new Intent(this, UserListView.class);
+        startActivity(intent);
+        break;
+
+      case R.id.action_settings:
+        Log.d("Appbar","Selected Settings");
+        break;
+
+      default:
+        Log.d("Appbar","Another option was selected");
+        break;
+    }
+
+    return super.onOptionsItemSelected(item);
+  }
+  
 }

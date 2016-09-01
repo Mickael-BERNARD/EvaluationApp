@@ -23,6 +23,11 @@ public class PostCreate extends AppCompatActivity {
   EditText country;
   EditText cities;
   EditText description;
+  EditText places_of_interest;
+  EditText accommodations;
+  EditText transport;
+  EditText business;
+  EditText education;
 
 
   @Override
@@ -42,6 +47,11 @@ public class PostCreate extends AppCompatActivity {
     country = (EditText) findViewById(R.id.pe_country);
     cities = (EditText) findViewById(R.id.pe_cities);
     description = (EditText) findViewById(R.id.pe_description);
+    places_of_interest = (EditText) findViewById(R.id.pe_poi);
+    accommodations = (EditText) findViewById(R.id.pe_accomodations);
+    transport = (EditText) findViewById(R.id.pe_transport);
+    business = (EditText) findViewById(R.id.pe_business);
+    education = (EditText) findViewById(R.id.pe_education);
 
   }
 
@@ -54,11 +64,11 @@ public class PostCreate extends AppCompatActivity {
     String s_country = country.getText().toString();
     String s_cities = cities.getText().toString();
     String s_desc = description.getText().toString();
-    String s_pof = "";
-    String s_accomodations = "";
-    String s_transport = "";
-    String s_business = "";
-    String s_education = "";
+    String s_pof = places_of_interest.getText().toString();
+    String s_accomodations = accommodations.getText().toString();
+    String s_transport = transport.getText().toString();
+    String s_business = business.getText().toString();
+    String s_education = education.getText().toString();
 
     Log.d("submitPost","button clicked"+(s_country.isEmpty() | s_cities.isEmpty() | s_desc.isEmpty()));
     // Check if the form is valid:
