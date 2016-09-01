@@ -27,7 +27,7 @@ public class PostEdit extends AppCompatActivity {
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_post_edit);
+    setContentView(R.layout.activity_post_edit_scrollview);
 
     // Recover intent
     Intent intent = getIntent();

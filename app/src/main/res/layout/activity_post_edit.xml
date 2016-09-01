@@ -22,6 +22,14 @@
   <TextView
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:id="@+id/textView20"
+    android:layout_below="@+id/TextView"
+    android:hint="Veuillez remplir au moins les trois premiers champs ci dessous:"
+    android:layout_margin="10dp" />
+
+  <TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     android:text="Pays: "
     android:id="@+id/textView2"
     android:textSize="15dp"
@@ -30,12 +38,12 @@
 
   <EditText
     android:layout_width="match_parent"
-    android:layout_height="45dp"
-    android:hint="Country"
+    android:layout_height="wrap_content"
     android:id="@+id/pe_country"
     android:layout_toRightOf="@+id/textView2"
     android:layout_alignLeft="@+id/pe_cities"
-    android:layout_below="@+id/TextView" />
+    android:layout_below="@+id/textView20"
+    android:hint="Le pays où as eut lieu votre séjour" />
 
   <TextView
     android:layout_width="wrap_content"
@@ -50,10 +58,11 @@
   <EditText
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:hint="Cities"
     android:id="@+id/pe_cities"
     android:layout_below="@+id/pe_country"
-    android:layout_toRightOf="@+id/textView4" />
+    android:layout_toRightOf="@+id/textView4"
+    android:layout_marginBottom="40dp"
+    android:hint="Les villes visitées" />
 
   <TextView
     android:layout_width="wrap_content"
@@ -67,17 +76,98 @@
   <EditText
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:hint="Description"
+    android:hint="Une description générale de votre séjour à l&apos;étranger"
     android:id="@+id/pe_description"
+    android:layout_alignLeft="@+id/pe_country"
+    android:nestedScrollingEnabled="false"
     android:layout_below="@+id/pe_cities"
-    android:layout_alignLeft="@+id/pe_country" />
+    android:layout_marginBottom="20dp" />
 
+  <TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="Intérêts:"
+    android:id="@+id/textView12"
+    android:layout_margin="10dp"
+    android:layout_alignBaseline="@+id/pe_poi" />
+
+  <EditText
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/pe_poi"
+    android:layout_below="@+id/pe_description"
+    android:layout_alignLeft="@+id/pe_country"
+    android:nestedScrollingEnabled="false" />
+
+  <TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="Logement:"
+    android:id="@+id/textView15"
+    android:layout_alignBaseline="@+id/pe_accomodations"
+    android:layout_margin="10dp" />
+
+  <EditText
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/pe_accomodations"
+    android:layout_below="@+id/pe_poi"
+    android:layout_alignLeft="@+id/pe_country"
+    android:nestedScrollingEnabled="false" />
+
+  <TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="Déplacements:"
+    android:id="@+id/textView16"
+    android:layout_alignBaseline="@+id/pe_transport"
+    android:layout_margin="10dp" />
+
+  <EditText
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/pe_transport"
+    android:layout_below="@+id/pe_accomodations"
+    android:layout_alignLeft="@+id/pe_country"
+    android:nestedScrollingEnabled="false" />
+
+  <TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="Entreprises:"
+    android:id="@+id/textView17"
+    android:layout_alignBaseline="@+id/pe_business"
+    android:layout_margin="10dp" />
+
+  <EditText
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/pe_business"
+    android:layout_below="@+id/pe_transport"
+    android:layout_alignLeft="@+id/pe_country"
+    android:nestedScrollingEnabled="false" />
+
+  <TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="Écoles:"
+    android:id="@+id/textView18"
+    android:layout_alignBaseline="@+id/pe_education"
+    android:layout_margin="10dp" />
+
+  <EditText
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/pe_education"
+    android:layout_below="@+id/pe_business"
+    android:layout_alignLeft="@+id/pe_country"
+    android:nestedScrollingEnabled="false" />
   <Button
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:text="Valider"
     android:id="@+id/button4"
-    android:layout_below="@+id/pe_description"
+    android:layout_below="@+id/pe_education"
     android:layout_alignEnd="@+id/pe_description"
     android:layout_marginTop="26dp"
     android:onClick="handleOnCLickValider" />
@@ -90,6 +180,7 @@
     android:id="@+id/button5"
     android:layout_alignBottom="@+id/button4"
     android:layout_toStartOf="@+id/button4"
-    android:onClick="handleOnClickCancel" />
+    android:onClick="handleOnClickCancel"
+    android:layout_below="@+id/pe_education" />
 
 </RelativeLayout>

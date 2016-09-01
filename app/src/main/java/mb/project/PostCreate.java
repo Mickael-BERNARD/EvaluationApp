@@ -28,7 +28,7 @@ public class PostCreate extends AppCompatActivity {
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_post_create);
+    setContentView(R.layout.activity_post_create_scrollview);
 
     // Initialize the database
     database = new DBHelper(this);
@@ -65,7 +65,7 @@ public class PostCreate extends AppCompatActivity {
     if (s_country.isEmpty() | s_cities.isEmpty() | s_desc.isEmpty()){
       // Create a pop up
       AlertDialog.Builder builder = new AlertDialog.Builder(this);
-      builder.setMessage("Erreur: veuillez remplir tous les champs indiqués");
+      builder.setMessage("Erreur: veuillez remplir au moins les 3 premiers champs indiqués");
       builder.setNegativeButton("OK", new DialogInterface.OnClickListener() {
         @Override
         public void onClick(DialogInterface dialogInterface, int i) {
