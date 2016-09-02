@@ -1,4 +1,4 @@
-package mb.project;
+package mb.project.UserList;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -12,6 +12,7 @@ import android.widget.TextView;
 import mb.project.Database.ContractAccount;
 import mb.project.Database.DBHelper;
 import mb.project.Database.TableContent;
+import mb.project.R;
 
 public class UserListViewAdapter extends CursorAdapter{
 

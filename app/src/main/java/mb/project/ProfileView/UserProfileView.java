@@ -15,8 +15,8 @@ import mb.project.Database.ContractAccount;
 import mb.project.Database.DBHelper;
 import mb.project.ProfileEdit.UserProfileEdit;
 import mb.project.R;
-import mb.project.UserListView;
-import mb.project.UserPostView;
+import mb.project.UserList.UserListView;
+import mb.project.PostView.UserPostView;
 
 public class UserProfileView extends AppCompatActivity {
 

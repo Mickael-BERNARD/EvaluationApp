@@ -1,6 +1,7 @@
-package mb.project;
+package mb.project.PostView;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Paint;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -8,28 +9,44 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import mb.project.Database.ContractAccount;
+import mb.project.Database.ContractComment;
 import mb.project.Database.ContractContent;
 import mb.project.Database.DBHelper;
 import mb.project.ProfileEdit.UserProfileEdit;
 import mb.project.ProfileView.UserProfileView;
+import mb.project.R;
+import mb.project.SessionManager;
+import mb.project.UserList.UserListView;
 
 public class UserPostView extends AppCompatActivity {
 
   DBHelper database = new DBHelper(this);
 
+  SessionManager session;
+
   int userId;
+  int postId;
+
+  ListView commentList;
+
+  CommentListAdapter dataAdapter;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_user_post_view_scrollview);
 
+    session = new SessionManager(this);
+
     // Recover intent
     Intent intent = getIntent();
     int position = intent.getIntExtra("position",0);
+    postId = position;
     Log.d("UserPostView","got position:"+position); // The row id of of the element in the COntent table
 
     // Recover the row
@@ -45,6 +62,8 @@ public class UserPostView extends AppCompatActivity {
     TextView transport = (TextView) findViewById(R.id.upv_transport);
     TextView business = (TextView) findViewById(R.id.upv_business);
     TextView education = (TextView) findViewById(R.id.upv_education);
+
+    commentList = (ListView) findViewById(R.id.upv_commentList);
 
     TextView userName = (TextView) findViewById(R.id.upv_username);
 
@@ -74,8 +93,19 @@ public class UserPostView extends AppCompatActivity {
 
     userName.setPaintFlags(userName.getPaintFlags() |   Paint.UNDERLINE_TEXT_FLAG);
     userName.setText(firstName+" "+lastName);
+    displayCommentList();
 
+  }
 
+  public void displayCommentList(){
+    database = new DBHelper(this);
+    Cursor cursor = database.getCommentByPostId(postId);
+
+    Log.d("displayCommentList"," "+cursor.getCount());
+    dataAdapter = new CommentListAdapter(this, cursor,0);
+    commentList = (ListView)findViewById(R.id.upv_commentList);
+    commentList.setAdapter(dataAdapter);
+    database.close();
   }
 
   /**
@@ -97,6 +127,50 @@ public class UserPostView extends AppCompatActivity {
     Intent intent = new Intent(this, UserProfileView.class);
     intent.putExtra("userId",userId);
     startActivity(intent);
+  }
+
+  /**
+   * This method will create a new ContractComment object and add it
+   * to the Table Comments before updating the layout's ListRow
+   * @param view
+   */
+  public void addPost(View view){
+    Log.d("addPost","The method was called");
+    EditText content = (EditText) findViewById(R.id.upv_new_comment);
+
+    // We create a new ContractComment Object
+    ContractComment contract = new ContractComment();
+    // We retrieve the userId
+     int ownerId = session.getUserId();
+    contract.setPostId(postId);
+    contract.setUserId(ownerId);
+    contract.setContent(content.getText().toString());
+    database.insertComment(contract);
+
+    // Empty the comment input section:
+    content.setText("");
+    refreshCommentList();
+  }
+
+  public void refreshCommentList(){
+
+      commentList.setAdapter(null);
+      // Reset cursor
+     Cursor cursor = database.getCommentByPostId(postId);
+    cursor.moveToFirst();
+
+    Log.d("refreshCommentList","Number of elements to load:"+cursor.getCount());
+      // Reset adapter
+      dataAdapter = new CommentListAdapter(this, cursor,0);
+
+      // Reset listview
+
+    commentList = (ListView) findViewById(R.id.upv_commentList);
+      commentList.invalidateViews();
+      commentList.setAdapter(dataAdapter);
+
+      database.close();
+
   }
 
 

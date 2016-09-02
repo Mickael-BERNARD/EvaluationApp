@@ -18,6 +18,7 @@ import mb.project.Database.ContractContent;
 import mb.project.Database.DBHelper;
 import mb.project.Database.TableAccounts;
 import mb.project.Database.ContractAccount;
+import mb.project.Database.TableComments;
 import mb.project.Database.TableContent;
 
 import static android.database.DatabaseUtils.queryNumEntries;
@@ -269,6 +270,20 @@ public class DBHelperTest {
     assertTrue(contract.getCountry().compareTo("Russia")==0);
     assertTrue(contract.getCities().compareTo("Moscow")==0);
     assertTrue(contract.getDescription().compareTo("The red phone is silent")==0);
+  }
+
+  @Test
+  public void testGetCommentByPostId(){
+    dbHelper.insertComment(new ContractComment(4,3,"I was here first"));
+    dbHelper.insertComment(new ContractComment(2,3,"Nice post"));
+    dbHelper.insertComment(new ContractComment(3,3,"Hey thanks"));
+
+    Cursor cursor = dbHelper.getCommentByPostId(3);
+    cursor.moveToFirst();
+    assertTrue( cursor.getInt(cursor.getColumnIndexOrThrow(TableComments.COLUMN_USER_ID))== 4);
+    cursor.moveToNext();
+    assertTrue( cursor.getInt(cursor.getColumnIndexOrThrow(TableComments.COLUMN_USER_ID))== 2);
+    assertTrue( cursor.getString(cursor.getColumnIndexOrThrow(TableComments.COLUMN_CONTENT)).compareTo("Nice post")==0);
   }
 
   @Test

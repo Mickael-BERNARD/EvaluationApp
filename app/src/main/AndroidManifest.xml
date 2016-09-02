@@ -27,11 +27,10 @@
     <activity android:name=".DisplayMessageActivity" />
     <activity android:name=".TableManipulationActivity" />
     <activity android:name=".UserProfileCreationPage" />
-    <activity android:name=".UserListView" />
-    <activity android:name=".UserWall" />
+    <activity android:name=".UserList.UserListView" />
     <activity android:name=".ProfileEdit.UserProfileEdit" />
     <activity android:name=".PostEdit" />
-    <activity android:name=".UserPostView" />
+    <activity android:name=".PostView.UserPostView" />
     <activity android:name=".PostCreate" />
     <activity android:name=".ProfileView.UserProfileView"></activity>
   </application>

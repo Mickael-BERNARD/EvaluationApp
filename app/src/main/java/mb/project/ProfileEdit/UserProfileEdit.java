@@ -20,7 +20,7 @@ import mb.project.PostCreate;
 import mb.project.PostEdit;
 import mb.project.R;
 import mb.project.SessionManager;
-import mb.project.UserListView;
+import mb.project.UserList.UserListView;
 
 public class UserProfileEdit extends AppCompatActivity {
 
@@ -157,6 +157,7 @@ public class UserProfileEdit extends AppCompatActivity {
     super.onResume();
     Log.d("UserProfileEdit","Activity resumed");
     refreshPostList();
+
   }
 
   public void refreshPostList(){

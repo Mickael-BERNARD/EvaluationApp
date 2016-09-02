@@ -376,6 +376,21 @@ public ContractContent getContentByRow(int id){
     return cursor;
   }
 
+  public Cursor getCommentByPostId(int postId){
+    // Get a reference to the readable DB
+    SQLiteDatabase db = this.getReadableDatabase();
+    // Build query
+    Cursor cursor = db.query(TableComments.TABLE_NAME, // table
+      TableComments.COLUMNS, // column names
+      ""+TableComments.COLUMN_POST_ID+" =? ", // selections
+      new String[]{String.valueOf(postId)}, // selection args
+      null, // group by
+      null, // having
+      null, // order by
+      null);  // limit
+
+   return  cursor;
+  }
 
   public ContractComment getCommentByPostIdAndUserId(int postId,int userId ){
     // Get a reference to the readable DB
@@ -478,6 +493,8 @@ public ContractContent getContentByRow(int id){
     Log.d("getAllUsers()",contracts.toString());
     return contracts; // The arrayList
   }
+
+
 
   public ArrayList<ContractComment> getAllComments(){
     ArrayList<ContractComment> contracts = new ArrayList<>();

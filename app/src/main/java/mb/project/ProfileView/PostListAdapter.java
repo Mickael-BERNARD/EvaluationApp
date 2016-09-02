@@ -36,6 +36,7 @@ public class PostListAdapter extends CursorAdapter {
   // as setting the text on a TextView.
   @Override
   public void bindView(View view, Context context, Cursor cursor) {
+
     TextView country = (TextView) view.findViewById(R.id.pvpl_country);
     TextView cities = (TextView) view.findViewById(R.id.pvpl_cities);
     // Extract properties from the cursor
