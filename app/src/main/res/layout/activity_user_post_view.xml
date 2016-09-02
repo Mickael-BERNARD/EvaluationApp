@@ -236,7 +236,8 @@
     android:layout_height="600dp"
     android:id="@+id/upv_commentList"
     android:layout_below="@+id/textView25"
-    android:layout_alignStart="@+id/textView25" />
+    android:layout_alignStart="@+id/textView25"
+    android:nestedScrollingEnabled="true" />
 
   <EditText
     android:layout_width="match_parent"
